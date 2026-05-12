@@ -1,0 +1,11 @@
+{
+  "extends": "@threadly/config/tsconfig.library.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022"],
+    "types": ["node"]
+  },
+  "include": ["src/**/*", "prisma/**/*.ts"]
+}

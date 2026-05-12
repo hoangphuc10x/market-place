@@ -1,0 +1,11 @@
+{
+  "extends": "@threadly/config/tsconfig.library.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["dom", "ES2022"]
+  },
+  "include": ["src/**/*"]
+}

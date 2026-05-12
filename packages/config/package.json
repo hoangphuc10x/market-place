@@ -1,0 +1,29 @@
+{
+  "name": "@threadly/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.js",
+  "files": [
+    "tsconfig.base.json",
+    "tsconfig.nextjs.json",
+    "tsconfig.nestjs.json",
+    "tsconfig.library.json",
+    "tailwind.preset.ts",
+    "eslint.base.js"
+  ],
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tsconfig.nextjs.json": "./tsconfig.nextjs.json",
+    "./tsconfig.nestjs.json": "./tsconfig.nestjs.json",
+    "./tsconfig.library.json": "./tsconfig.library.json",
+    "./tailwind-preset": "./tailwind.preset.ts",
+    "./eslint": "./eslint.base.js"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": { "optional": true }
+  }
+}

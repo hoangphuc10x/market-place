@@ -1,0 +1,27 @@
+version: 2
+updates:
+  # JS deps — grouped to avoid PR spam
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: weekly, day: monday }
+    open-pull-requests-limit: 5
+    groups:
+      next:
+        patterns: ['next', 'eslint-config-next', '@next/*', 'react', 'react-dom', '@types/react*']
+      nest:
+        patterns: ['@nestjs/*']
+      prisma:
+        patterns: ['prisma', '@prisma/*']
+      lint:
+        patterns: ['eslint*', '@typescript-eslint/*', 'prettier']
+      types:
+        patterns: ['@types/*']
+        update-types: ['minor', 'patch']
+      dev:
+        patterns: ['typescript', 'turbo', 'tsx', 'ts-node']
+        update-types: ['minor', 'patch']
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: monthly }

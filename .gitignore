@@ -1,0 +1,37 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# build
+dist/
+build/
+.next/
+.turbo/
+out/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor / OS
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# test / cache
+coverage/
+*.tsbuildinfo
+
+# prisma
+**/prisma/migrations/dev.db*
+
+# docker volumes (kept local)
+.docker-data/

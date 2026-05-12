@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-progress runs on the same ref (e.g. force-push to PR).
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TURBO_TELEMETRY_DISABLED: 1
+  # Required for Prisma generate at install-time and typecheck.
+  DATABASE_URL: postgresql://threadly:threadly@localhost:5432/threadly?schema=public
+
+jobs:
+  # ─── Quick checks that don't need a DB ──────────────────────────────────
+  verify:
+    name: typecheck · lint · build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Cache turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm db:generate
+
+      - name: Validate Prisma schema
+        run: pnpm --filter @threadly/db exec prisma validate
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
+
+  # ─── Schema migration safety ────────────────────────────────────────────
+  # Catches "schema drifted from migrations" before it hits production.
+  migrations:
+    name: prisma migrations apply cleanly
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: threadly
+          POSTGRES_PASSWORD: threadly
+          POSTGRES_DB: threadly
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U threadly"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Push schema to fresh DB
+        run: pnpm db:push
+
+      - name: Run seed (smoke test)
+        run: pnpm --filter @threadly/db seed
+
+  # ─── Tests (placeholder — wire when test suites exist) ──────────────────
+  # Kept commented so it's a one-line uncomment when we add Jest/Vitest.
+  #
+  # test:
+  #   name: unit + integration tests
+  #   runs-on: ubuntu-latest
+  #   services:
+  #     postgres: { ... }
+  #     redis:    { ... }
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: pnpm install --frozen-lockfile
+  #     - run: pnpm db:push
+  #     - run: pnpm test

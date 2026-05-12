@@ -1,0 +1,25 @@
+export * from './client';
+export { Prisma } from '@prisma/client';
+export type {
+  User,
+  Account,
+  Session,
+  Address,
+  Store,
+  StoreFollower,
+  Product,
+  ProductImage,
+  Variant,
+  ProductReview,
+  WishlistItem,
+  Cart,
+  CartLine,
+  Order,
+  OrderLine,
+  UserRole,
+  StoreStatus,
+  StoreCategory,
+  ProductStatus,
+  OrderStatus,
+  PaymentMethod,
+} from '@prisma/client';
