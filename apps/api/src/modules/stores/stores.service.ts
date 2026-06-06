@@ -15,6 +15,7 @@ import {
   type SlugAvailabilityResponse,
   type StoreCategory,
   type ThemeConfig,
+  type UpdateStoreInput,
 } from '@threadly/types';
 import { defaultThemeConfig, toProductDto, toPublicStore } from './mappers';
 import { AuthService } from '../auth/auth.service';
@@ -30,6 +31,15 @@ export class StoresService {
     const store = await this.prisma.store.findUnique({ where: { slug } });
     if (!store) throw new NotFoundException('Store not found');
     return toPublicStore(store);
+  }
+
+  async listActive(limit = 50): Promise<PublicStore[]> {
+    const stores = await this.prisma.store.findMany({
+      where: { status: 'ACTIVE' },
+      orderBy: [{ followerCount: 'desc' }, { createdAt: 'desc' }],
+      take: limit,
+    });
+    return stores.map(toPublicStore);
   }
 
   async listProducts(slug: string): Promise<Product[]> {
@@ -113,6 +123,38 @@ export class StoresService {
       orderBy: { createdAt: 'desc' },
     });
     return stores.map(toPublicStore);
+  }
+
+  /**
+   * Owner-scoped store update. Slug is intentionally not editable here —
+   * URLs are sacred, changing them breaks shared links and SEO. If a seller
+   * really needs to rename, we'll do it via support with redirects.
+   */
+  async updateOwnedStore(
+    ownerId: string,
+    storeId: string,
+    input: UpdateStoreInput,
+  ): Promise<PublicStore> {
+    await this.assertOwnership(storeId, ownerId);
+    const current = await this.prisma.store.findUniqueOrThrow({ where: { id: storeId } });
+
+    const nextTheme = input.theme
+      ? ({
+          ...(current.theme as unknown as ThemeConfig),
+          ...input.theme,
+        } as ThemeConfig)
+      : (current.theme as unknown as ThemeConfig);
+
+    const updated = await this.prisma.store.update({
+      where: { id: storeId },
+      data: {
+        ...(input.name !== undefined ? { name: input.name } : {}),
+        ...(input.bio !== undefined ? { bio: input.bio } : {}),
+        ...(input.category !== undefined ? { category: input.category } : {}),
+        theme: nextTheme,
+      },
+    });
+    return toPublicStore(updated);
   }
 
   async assertOwnership(storeId: string, userId: string): Promise<void> {

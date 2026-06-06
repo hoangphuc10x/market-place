@@ -7,13 +7,13 @@ threadly.com/             ← marketplace (discover, search, trending)
 threadly.com/linhstudio   ← seller's own storefront (themed, branded)
 ```
 
-## Quick start
+## Quick start (dev)
 
 ```bash
 # 1. Install deps
 pnpm install
 
-# 2. Start Postgres + Redis + Meilisearch
+# 2. Start Postgres + Redis + Meilisearch (dev infra only)
 pnpm docker:up
 
 # 3. Copy env and edit if needed
@@ -32,6 +32,53 @@ Visit:
 - `http://localhost:3000/linhstudio` — seeded demo storefront (Atelier theme)
 - `http://localhost:3000/seller/onboarding` — create your own shop
 - `http://localhost:4000/v1/health` — API healthcheck
+
+## Production (Docker)
+
+Each app has a multi-stage Dockerfile at `apps/{api,web}/Dockerfile`. Build
+context is the **monorepo root** (not the app folder), so the pnpm workspace
+resolves cleanly.
+
+### Build individual images
+
+```bash
+# API (NestJS + Prisma)
+docker build -f apps/api/Dockerfile -t threadly-api .
+
+# Web (Next.js standalone)
+docker build -f apps/web/Dockerfile \
+  --build-arg NEXT_PUBLIC_API_URL=https://api.threadly.example \
+  --build-arg NEXT_PUBLIC_APP_URL=https://threadly.example \
+  -t threadly-web .
+```
+
+### Full stack with compose
+
+```bash
+# 1. Fill in secrets
+cp .env.production.example .env.production
+# edit .env.production — set POSTGRES_PASSWORD, JWT_SECRET, etc.
+
+# 2. Build + run everything
+docker compose --env-file .env.production -f docker-compose.prod.yml up -d --build
+
+# 3. Tail logs
+docker compose -f docker-compose.prod.yml logs -f api web
+
+# 4. Stop
+docker compose -f docker-compose.prod.yml down
+```
+
+The `migrate` service runs `prisma migrate deploy` once at startup, then the
+`api` service starts only after migrations finish. Put nginx/Caddy in front of
+`:3000` and `:4000` in real prod — the compose only binds to `127.0.0.1`.
+
+### Image sizes (after build)
+
+| Image | Size | Notes |
+|---|---|---|
+| `threadly-web` | ~180 MB | Next.js standalone on alpine |
+| `threadly-api` | ~450 MB | debian-slim + Prisma engine + full monorepo (room to shrink with `pnpm prune --prod` later) |
 
 ## Repo layout
 

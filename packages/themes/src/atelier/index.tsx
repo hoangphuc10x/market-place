@@ -190,13 +190,30 @@ function Storefront({ store, products }: StorefrontProps) {
 
 function PickerPreview({ store }: PickerPreviewProps) {
   return (
-    <div className="flex h-full flex-col bg-white p-6 font-sans text-neutral-900">
-      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">Atelier</p>
-      <h3 className="mt-2 font-serif text-xl tracking-tight">{store.name}</h3>
-      <div className="mt-3 aspect-[4/3] flex-1 bg-gradient-to-b from-neutral-100 to-neutral-200" />
-      <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-400">
-        Minimal · Editorial
+    <div className="flex h-full flex-col bg-white p-4 text-neutral-900">
+      <div className="flex items-center justify-between">
+        <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-neutral-500">
+          Atelier · Est.
+        </p>
+        <p className="font-mono text-[9px] text-neutral-400">··</p>
+      </div>
+      <h3 className="mt-3 font-serif text-2xl leading-tight tracking-tight">
+        {store.name}
+      </h3>
+      <p className="mt-1 line-clamp-1 font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-500">
+        {store.theme.tagline ?? 'Slow fashion'}
       </p>
+      {/* mini product grid — 2x2 grayscale to convey minimal aesthetic */}
+      <div className="mt-3 grid flex-1 grid-cols-2 gap-1.5">
+        <div className="bg-gradient-to-br from-neutral-100 to-neutral-200" />
+        <div className="bg-gradient-to-br from-neutral-200 to-neutral-300" />
+        <div className="bg-gradient-to-br from-neutral-150 to-neutral-250 bg-neutral-200" />
+        <div className="bg-gradient-to-br from-neutral-100 to-neutral-200" />
+      </div>
+      <div className="mt-3 flex items-center justify-between border-t border-neutral-200 pt-2">
+        <span className="font-serif text-[10px]">Browse →</span>
+        <span className="font-mono text-[9px] text-neutral-400">/{store.slug || 'shop'}</span>
+      </div>
     </div>
   );
 }

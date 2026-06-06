@@ -1,27 +1,27 @@
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
-export function MarketplaceFooter() {
+export async function MarketplaceFooter() {
+  const t = await getTranslations('footer');
   return (
     <footer className="mt-24 border-t border-border/60">
       <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-12 text-sm md:grid-cols-4">
         <div>
           <p className="text-base font-semibold tracking-tight">threadly</p>
-          <p className="mt-2 text-muted-foreground">
-            A marketplace where every shop is its own storefront.
-          </p>
+          <p className="mt-2 text-muted-foreground">{t('tagline')}</p>
         </div>
-        <FooterColumn title="Discover">
-          <FooterLink href="/discover">Browse shops</FooterLink>
-          <FooterLink href="/search">Search</FooterLink>
+        <FooterColumn title={t('sections.discover')}>
+          <FooterLink href="/discover">{t('links.browseShops')}</FooterLink>
+          <FooterLink href="/search">{t('links.search')}</FooterLink>
         </FooterColumn>
-        <FooterColumn title="Sell">
-          <FooterLink href="/seller/onboarding">Open a shop</FooterLink>
-          <FooterLink href="/seller">Seller dashboard</FooterLink>
+        <FooterColumn title={t('sections.sell')}>
+          <FooterLink href="/seller/onboarding">{t('links.openShop')}</FooterLink>
+          <FooterLink href="/seller">{t('links.sellerDashboard')}</FooterLink>
         </FooterColumn>
-        <FooterColumn title="Platform">
-          <FooterLink href="/about">About</FooterLink>
-          <FooterLink href="/help">Help</FooterLink>
-          <FooterLink href="/terms">Terms</FooterLink>
+        <FooterColumn title={t('sections.platform')}>
+          <FooterLink href="/about">{t('links.about')}</FooterLink>
+          <FooterLink href="/help">{t('links.help')}</FooterLink>
+          <FooterLink href="/terms">{t('links.terms')}</FooterLink>
         </FooterColumn>
       </div>
     </footer>

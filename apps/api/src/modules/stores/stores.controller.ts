@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import {
   createStoreInputSchema,
-  slugSchema,
+  SLUG_PATTERN,
   type CreateStoreInput,
   type Product,
   type PublicStore,
@@ -24,13 +24,20 @@ import type { JwtPayload } from '../auth/auth.service';
 export class StoresController {
   constructor(private readonly stores: StoresService) {}
 
+  @Get()
+  listStores(@Query('limit') limit?: string): Promise<PublicStore[]> {
+    const n = limit ? Math.min(Math.max(parseInt(limit, 10) || 0, 1), 100) : 50;
+    return this.stores.listActive(n);
+  }
+
   @Get('slug-availability')
   checkSlug(@Query('slug') slug: string): Promise<SlugAvailabilityResponse> {
-    const parsed = slugSchema.safeParse(slug);
-    if (!parsed.success) {
-      return Promise.resolve({ slug, available: false, reason: 'invalid' });
+    // Check format first — if it's not even a valid slug shape, no point hitting DB.
+    // Service distinguishes "reserved" vs "taken" — controller just gates malformed.
+    if (typeof slug !== 'string' || !SLUG_PATTERN.test(slug)) {
+      return Promise.resolve({ slug: slug ?? '', available: false, reason: 'invalid' });
     }
-    return this.stores.checkSlugAvailability(parsed.data);
+    return this.stores.checkSlugAvailability(slug);
   }
 
   @Get(':slug')

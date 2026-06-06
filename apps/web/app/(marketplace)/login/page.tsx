@@ -1,10 +1,14 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { login } from '@/lib/api/auth';
 import { setAuthCookie } from '@/lib/session';
 import { loginInputSchema } from '@threadly/types';
 
-export const metadata = { title: 'Sign in' };
+export async function generateMetadata() {
+  const t = await getTranslations('auth.login');
+  return { title: t('title') };
+}
 
 async function loginAction(formData: FormData) {
   'use server';
@@ -18,24 +22,25 @@ async function loginAction(formData: FormData) {
   redirect('/account');
 }
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const t = await getTranslations('auth.login');
   return (
     <div className="mx-auto max-w-md px-6 py-20">
-      <h1 className="text-3xl font-semibold tracking-tight">Welcome back</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">{t('title')}</h1>
       <form action={loginAction} className="mt-8 space-y-4">
-        <Field label="Email" name="email" type="email" required />
-        <Field label="Password" name="password" type="password" required />
+        <Field label={t('email')} name="email" type="email" required />
+        <Field label={t('password')} name="password" type="password" required />
         <button
           type="submit"
           className="h-11 w-full rounded-full bg-foreground text-sm font-medium text-background hover:opacity-90"
         >
-          Sign in
+          {t('submit')}
         </button>
       </form>
       <p className="mt-6 text-center text-sm text-muted-foreground">
-        New here?{' '}
+        {t('noAccount')}{' '}
         <Link href="/signup" className="text-foreground underline-offset-4 hover:underline">
-          Create an account
+          {t('createAccount')}
         </Link>
       </p>
     </div>

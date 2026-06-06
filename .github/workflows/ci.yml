@@ -52,6 +52,13 @@ jobs:
       - name: Validate Prisma schema
         run: pnpm --filter @threadly/db exec prisma validate
 
+      # Workspace packages point at dist/ — build them before anything that
+      # imports them (typecheck, lint, full build) so TS can resolve types.
+      - name: Build workspace packages
+        run: |
+          pnpm --filter @threadly/types build
+          pnpm --filter @threadly/db build
+
       - name: Typecheck
         run: pnpm typecheck
 
@@ -95,6 +102,14 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm db:generate
+
+      - name: Build db + types
+        run: |
+          pnpm --filter @threadly/types build
+          pnpm --filter @threadly/db build
 
       - name: Push schema to fresh DB
         run: pnpm db:push

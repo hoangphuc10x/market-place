@@ -1,0 +1,43 @@
+# Build context is monorepo root, so these patterns scope across the tree.
+# Anything not in this list is part of the build context.
+
+# Deps + build output (rebuilt inside the image)
+**/node_modules
+**/dist
+**/.next
+**/.turbo
+**/coverage
+
+# Env (never bake into images — inject at runtime)
+.env
+.env.*
+!.env.example
+
+# VCS / editor
+.git
+.gitignore
+.gitattributes
+.github
+.vscode
+.idea
+.DS_Store
+
+# Docker artifacts
+**/Dockerfile
+**/.dockerignore
+docker-compose*.yml
+
+# Logs + tmp
+*.log
+**/*.log
+**/.docker-data
+
+# Tests / CI fixtures (don't need in image)
+**/__tests__
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+
+# Docs
+README.md
+**/*.md

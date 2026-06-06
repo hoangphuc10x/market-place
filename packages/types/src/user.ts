@@ -33,3 +33,10 @@ export const authResponseSchema = z.object({
   expiresIn: z.number().int().positive(),
 });
 export type AuthResponse = z.infer<typeof authResponseSchema>;
+
+/** Profile self-edit. Email + role + id are immutable through this surface. */
+export const updateProfileInputSchema = z.object({
+  displayName: z.string().min(1).max(60).optional(),
+  avatarUrl: z.string().url().nullable().optional(),
+});
+export type UpdateProfileInput = z.infer<typeof updateProfileInputSchema>;

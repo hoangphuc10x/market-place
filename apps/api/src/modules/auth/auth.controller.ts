@@ -1,10 +1,12 @@
-import { Body, Controller, Get, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Patch, Post, UseGuards } from '@nestjs/common';
 import {
   loginInputSchema,
   signupInputSchema,
+  updateProfileInputSchema,
   type AuthResponse,
   type LoginInput,
   type SignupInput,
+  type UpdateProfileInput,
   type User,
 } from '@threadly/types';
 import { AuthService } from './auth.service';
@@ -35,5 +37,14 @@ export class AuthController {
     const me = await this.auth.getById(user.sub);
     if (!me) throw new Error('User vanished');
     return me;
+  }
+
+  @Patch('me')
+  @UseGuards(JwtAuthGuard)
+  updateMe(
+    @CurrentUser() user: JwtPayload,
+    @Body(new ZodValidationPipe(updateProfileInputSchema)) input: UpdateProfileInput,
+  ): Promise<User> {
+    return this.auth.updateProfile(user.sub, input);
   }
 }

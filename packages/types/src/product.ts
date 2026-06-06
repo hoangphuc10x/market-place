@@ -74,6 +74,17 @@ export const productSchema = z.object({
 });
 export type Product = z.infer<typeof productSchema>;
 
+/**
+ * Product enriched with its parent store's public-safe slug + name.
+ * Used by marketplace surfaces (discover, search, trending) where we need
+ * to render the store name and link without a second fetch.
+ */
+export const productFeedItemSchema = productSchema.extend({
+  storeSlug: z.string(),
+  storeName: z.string(),
+});
+export type ProductFeedItem = z.infer<typeof productFeedItemSchema>;
+
 export const createProductInputSchema = z.object({
   title: z.string().min(1).max(120),
   description: z.string().max(4000).default(''),
@@ -93,3 +104,30 @@ export const createProductInputSchema = z.object({
   tags: z.array(z.string().max(30)).max(20).default([]),
 });
 export type CreateProductInput = z.infer<typeof createProductInputSchema>;
+
+/**
+ * Update payload — every field optional. `status` lets sellers toggle
+ * publish/draft. `images` and `variants` replace existing on save (sellers
+ * always submit the full set they want).
+ */
+export const updateProductInputSchema = z.object({
+  title: z.string().min(1).max(120).optional(),
+  description: z.string().max(4000).optional(),
+  status: productStatusSchema.optional(),
+  images: z.array(productImageSchema).min(1).max(12).optional(),
+  variants: z
+    .array(
+      z.object({
+        sku: z.string().min(1).max(64).optional(),
+        price: moneySchema,
+        compareAtPrice: moneySchema.nullable().optional(),
+        stock: z.number().int().nonnegative(),
+        attributes: variantAttributesSchema,
+      }),
+    )
+    .min(1)
+    .optional(),
+  details: fashionDetailsSchema.partial().optional(),
+  tags: z.array(z.string().max(30)).max(20).optional(),
+});
+export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;

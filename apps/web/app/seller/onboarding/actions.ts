@@ -27,11 +27,17 @@ export async function finishOnboardingAction(payload: OnboardingPayload) {
   if (!parsed.success) {
     return { ok: false as const, error: parsed.error.issues[0]?.message ?? 'Invalid input' };
   }
+
+  // Only the API call is wrapped — `redirect()` throws a NEXT_REDIRECT signal
+  // that Next intercepts to perform the navigation. Catching it would surface
+  // "NEXT_REDIRECT" as a UI error. Run it outside the try/catch.
+  let store;
   try {
-    const store = await completeOnboarding(parsed.data);
-    revalidateTag(`store:${store.slug}`);
-    redirect(`/${store.slug}?welcome=1`);
+    store = await completeOnboarding(parsed.data);
   } catch (e) {
     return { ok: false as const, error: (e as Error).message };
   }
+
+  revalidateTag(`store:${store.slug}`);
+  redirect(`/${store.slug}?welcome=1`);
 }

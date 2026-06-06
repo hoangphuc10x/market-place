@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { StoresModule } from './modules/stores/stores.module';
 import { ProductsModule } from './modules/products/products.module';
 import { SellersModule } from './modules/sellers/sellers.module';
+import { UploadsModule } from './modules/uploads/uploads.module';
 import { HealthController } from './modules/health/health.controller';
 
 @Module({
@@ -19,6 +20,7 @@ import { HealthController } from './modules/health/health.controller';
     StoresModule,
     ProductsModule,
     SellersModule,
+    UploadsModule,
   ],
   controllers: [HealthController],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],

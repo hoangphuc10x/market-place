@@ -1,0 +1,272 @@
+{
+  "common": {
+    "back": "Quay lại",
+    "continue": "Tiếp tục",
+    "save": "Lưu",
+    "cancel": "Huỷ",
+    "loading": "Đang tải…",
+    "or": "hoặc",
+    "language": "Ngôn ngữ"
+  },
+  "header": {
+    "discover": "Khám phá",
+    "search": "Tìm kiếm",
+    "new": "Mới",
+    "signIn": "Đăng nhập",
+    "openShop": "Mở shop"
+  },
+  "footer": {
+    "tagline": "Marketplace nơi mỗi shop là một website riêng.",
+    "sections": {
+      "discover": "Khám phá",
+      "sell": "Bán hàng",
+      "platform": "Nền tảng"
+    },
+    "links": {
+      "browseShops": "Xem shop",
+      "search": "Tìm kiếm",
+      "openShop": "Mở shop",
+      "sellerDashboard": "Bảng điều khiển",
+      "about": "Giới thiệu",
+      "help": "Trợ giúp",
+      "terms": "Điều khoản"
+    }
+  },
+  "home": {
+    "tagline": "Marketplace cho thời trang độc lập",
+    "title": "Mỗi shop là một <em>website</em>.",
+    "subtitle": "Threadly là sàn cho các brand thời trang độc lập. Mỗi seller có URL riêng, theme riêng, thế giới riêng — nhưng khám phá thì ở đây.",
+    "ctaBrowse": "Xem shop",
+    "ctaOpen": "Mở shop của bạn",
+    "pitch": {
+      "url": {
+        "title": "URL riêng",
+        "body": "threadly.com/tencuaban — share lên Instagram, TikTok, bất cứ đâu."
+      },
+      "theme": {
+        "title": "Chọn theme",
+        "body": "Ba theme tối ưu cho thời trang để bắt đầu. Không cần biết design."
+      },
+      "fast": {
+        "title": "Live trong 5 phút",
+        "body": "Đặt tên shop, chọn theme, thêm sản phẩm. Xong."
+      }
+    },
+    "cta": {
+      "title": "Sẵn sàng mở shop chưa?",
+      "subtitle": "Miễn phí bắt đầu. Chọn tên, chọn theme, là live.",
+      "button": "Mở shop"
+    }
+  },
+  "discover": {
+    "title": "Khám phá",
+    "subtitle": "Shop nổi bật, sản phẩm trending, hàng mới về.",
+    "shopsToFollow": "Shop đáng theo dõi",
+    "trendingPieces": "Sản phẩm hot",
+    "browseAllShops": "Xem tất cả shop →"
+  },
+  "search": {
+    "title": "Tìm kiếm",
+    "placeholder": "Tìm shop, sản phẩm, tag…"
+  },
+  "cart": {
+    "title": "Giỏ hàng",
+    "empty": "Giỏ hàng sẽ được nhóm theo shop. Mỗi shop checkout thành 1 đơn riêng."
+  },
+  "auth": {
+    "login": {
+      "title": "Chào mừng quay lại",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "submit": "Đăng nhập",
+      "noAccount": "Lần đầu?",
+      "createAccount": "Tạo tài khoản"
+    },
+    "signup": {
+      "title": "Tham gia Threadly",
+      "subtitle": "Miễn phí. Một phút là xong.",
+      "displayName": "Tên hiển thị",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "submit": "Tạo tài khoản",
+      "hasAccount": "Đã có tài khoản?",
+      "signIn": "Đăng nhập"
+    }
+  },
+  "account": {
+    "greeting": "Chào, {name}",
+    "email": "Email",
+    "role": "Vai trò",
+    "memberSince": "Tham gia từ",
+    "profileTitle": "Hồ sơ của tôi",
+    "profileSubtitle": "Quản lý thông tin cá nhân.",
+    "displayName": "Tên hiển thị",
+    "avatarUrl": "Avatar (URL)",
+    "avatarHint": "Paste link ảnh. Để trống sẽ dùng chữ cái đầu của tên.",
+    "save": "Lưu thay đổi",
+    "saving": "Đang lưu…",
+    "saved": "Đã lưu ✓",
+    "myShop": "Shop của tôi",
+    "noShop": "Bạn chưa có shop nào.",
+    "openShop": "Mở shop ngay →",
+    "viewStorefront": "Xem storefront",
+    "manageShop": "Quản lý shop",
+    "addProduct": "Thêm sản phẩm",
+    "products": "Sản phẩm",
+    "followers": "Người theo dõi"
+  },
+  "userMenu": {
+    "profile": "Tài khoản của tôi",
+    "orders": "Đơn mua",
+    "myShop": "Shop của tôi",
+    "viewStorefront": "Xem storefront",
+    "sellerDashboard": "Quản lý shop",
+    "shopSettings": "Cài đặt shop",
+    "openShop": "Mở shop",
+    "logout": "Đăng xuất"
+  },
+  "seller": {
+    "home": {
+      "title": "Trang seller",
+      "subtitle": "Bảng điều khiển (sắp có). Mở shop để bắt đầu.",
+      "openShop": "Mở shop →"
+    },
+    "dashboard": {
+      "viewStorefront": "Xem storefront →",
+      "settings": "Cài đặt shop",
+      "stats": {
+        "products": "Sản phẩm",
+        "followers": "Người theo dõi",
+        "status": "Trạng thái"
+      },
+      "products": {
+        "title": "Sản phẩm",
+        "empty": "Chưa có sản phẩm nào. Thêm sản phẩm đầu tiên để go-live.",
+        "addNew": "+ Thêm sản phẩm",
+        "edit": "Sửa",
+        "delete": "Xoá",
+        "deleteConfirm": "Xoá sản phẩm này?",
+        "status": {
+          "ACTIVE": "Đang bán",
+          "DRAFT": "Nháp",
+          "ARCHIVED": "Lưu trữ"
+        }
+      }
+    },
+    "productForm": {
+      "newTitle": "Thêm sản phẩm",
+      "editTitle": "Sửa sản phẩm",
+      "fields": {
+        "title": "Tên sản phẩm",
+        "description": "Mô tả",
+        "tags": "Tags (cách nhau dấu phẩy)",
+        "images": "Ảnh sản phẩm",
+        "imageHint": "Paste URL ảnh. Mỗi dòng một link (1-12 ảnh).",
+        "variants": "Phân loại (size + giá + tồn kho)",
+        "variantSize": "Size",
+        "variantPrice": "Giá (VND)",
+        "variantStock": "Tồn kho",
+        "variantColor": "Màu",
+        "addVariant": "+ Thêm phân loại",
+        "removeVariant": "Xoá",
+        "details": "Chi tiết",
+        "material": "Chất liệu",
+        "care": "Cách giặt",
+        "origin": "Xuất xứ",
+        "status": "Trạng thái"
+      },
+      "save": "Lưu",
+      "saving": "Đang lưu…",
+      "publish": "Lưu & đăng bán",
+      "saveDraft": "Lưu nháp"
+    },
+    "storeSettings": {
+      "title": "Cài đặt shop",
+      "fields": {
+        "name": "Tên shop",
+        "bio": "Giới thiệu (max 280 ký tự)",
+        "category": "Ngành hàng",
+        "theme": "Theme",
+        "primaryColor": "Màu chính",
+        "tagline": "Tagline",
+        "coverImage": "Ảnh bìa (URL)",
+        "logo": "Logo shop / Avatar (URL)"
+      },
+      "save": "Lưu thay đổi",
+      "saving": "Đang lưu…",
+      "saved": "Đã lưu ✓"
+    },
+    "onboarding": {
+      "steps": {
+        "identity": "Tên",
+        "category": "Ngành hàng",
+        "theme": "Theme",
+        "review": "Xác nhận"
+      },
+      "identity": {
+        "title": "Shop của bạn tên gì?",
+        "subtitle": "URL sẽ là threadly.com/ten-cua-ban. Tên hiển thị đổi được, URL thì cố định.",
+        "shopNameLabel": "Tên shop",
+        "shopNamePlaceholder": "Linh Studio",
+        "urlLabel": "URL",
+        "urlPlaceholder": "linhstudio",
+        "slugStatus": {
+          "checking": "Đang kiểm tra…",
+          "available": "✓ URL này là của bạn",
+          "invalid": "Dùng 3–32 ký tự chữ thường, số, hoặc dấu gạch.",
+          "reserved": "Tên này đã được dành riêng.",
+          "taken": "Đã có người dùng.",
+          "trySuggestions": "Thử:"
+        }
+      },
+      "category": {
+        "title": "Bạn bán gì?",
+        "subtitle": "Chọn ngành phù hợp nhất — chúng tôi sẽ gợi ý theme dựa trên này.",
+        "items": {
+          "STREETWEAR": "Streetwear",
+          "DESIGNER": "Designer",
+          "VINTAGE": "Vintage",
+          "HANDMADE": "Handmade",
+          "ACCESSORIES": "Phụ kiện",
+          "SHOES": "Giày",
+          "FORMAL": "Formal",
+          "ATHLEISURE": "Athleisure",
+          "KIDS": "Trẻ em",
+          "OTHER": "Khác"
+        }
+      },
+      "theme": {
+        "title": "Chọn theme",
+        "subtitle": "Mỗi theme đã được tối ưu cho thời trang. Có thể đổi sau ở phần Cài đặt.",
+        "recommended": "Gợi ý",
+        "primaryColor": "Màu chính",
+        "colorTip": "Mẹo: chọn màu đọc rõ trên cả ảnh sáng và tối.",
+        "tagline": "Tagline (tuỳ chọn)",
+        "taglinePlaceholder": "Thời trang chậm, làm tại Hà Nội."
+      },
+      "review": {
+        "title": "Sẵn sàng go-live?",
+        "subtitle": "Kiểm tra lại bên dưới. Sau này có thể sửa mọi thứ trừ URL.",
+        "labels": {
+          "shopName": "Tên shop",
+          "url": "URL",
+          "category": "Ngành hàng",
+          "theme": "Theme",
+          "primaryColor": "Màu chính",
+          "tagline": "Tagline"
+        },
+        "submit": "Hoàn tất · Go live",
+        "submitting": "Đang go-live…"
+      }
+    }
+  },
+  "storefront": {
+    "notFound": {
+      "title": "Chưa có shop tên <code>{slug}</code>",
+      "subtitle": "URL này chưa ai lấy. Bạn muốn? Mở shop và claim tên.",
+      "claim": "Claim /{slug}",
+      "browse": "Xem shop khác"
+    },
+    "welcome": "Chào mừng đến Threadly"
+  }
+}

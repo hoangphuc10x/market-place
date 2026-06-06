@@ -199,21 +199,43 @@ function Storefront({ store, products }: StorefrontProps) {
 
 function PickerPreview({ store }: PickerPreviewProps) {
   return (
-    <div className="flex h-full flex-col bg-black p-6 font-sans text-white">
+    <div className="flex h-full flex-col bg-black p-4 text-white">
       <p
-        className="font-mono text-[10px] uppercase tracking-[0.3em]"
+        className="font-mono text-[9px] uppercase tracking-[0.3em]"
         style={{ color: 'hsl(var(--primary))' }}
       >
-        Tokyo
+        ── Issue 01
       </p>
-      <h3 className="mt-2 text-2xl font-black uppercase">{store.name}</h3>
-      <div
-        className="mt-3 aspect-[4/3] flex-1"
-        style={{ background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, #000 100%)' }}
-      />
-      <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-400">
-        Editorial · Bold
-      </p>
+      <h3 className="mt-2 text-2xl font-black uppercase leading-[0.9] tracking-tight">
+        {store.name}
+      </h3>
+      {/* asymmetric magazine grid — hero block uses primary color */}
+      <div className="mt-3 grid flex-1 grid-cols-3 grid-rows-3 gap-1">
+        <div
+          className="col-span-2 row-span-2"
+          style={{
+            background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, #1a1a1a 100%)',
+          }}
+        />
+        <div className="bg-neutral-900" />
+        <div className="bg-neutral-800" />
+        <div className="col-span-2 bg-neutral-900" />
+        <div
+          className="bg-white/10"
+          style={{ borderTop: '2px solid hsl(var(--primary))' }}
+        />
+      </div>
+      <div className="mt-3 flex items-center justify-between">
+        <span
+          className="border px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.2em]"
+          style={{ borderColor: 'hsl(var(--primary))', color: 'hsl(var(--primary))' }}
+        >
+          Shop →
+        </span>
+        <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-neutral-400">
+          /{store.slug || 'shop'}
+        </span>
+      </div>
     </div>
   );
 }

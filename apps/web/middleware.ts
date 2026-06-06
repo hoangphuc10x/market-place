@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { isReservedSlug, SLUG_PATTERN } from '@threadly/types/slugs';
+import { LOCALE_COOKIE, isLocale, pickLocaleFromAcceptLanguage } from '@/i18n/config';
 
 /**
  * Routing guard.
@@ -26,22 +27,32 @@ const APP_PATH_PREFIXES = [
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  const res = NextResponse.next();
 
+  // ── i18n: ensure a NEXT_LOCALE cookie exists ──────────────────────────────
+  // Read once → first-visit auto-detect; subsequent requests use the cookie
+  // (also updated by the language switcher).
+  const existing = req.cookies.get('NEXT_LOCALE')?.value;
+  if (!isLocale(existing)) {
+    const detected = pickLocaleFromAcceptLanguage(req.headers.get('accept-language'));
+    res.cookies.set(LOCALE_COOKIE, detected, {
+      path: '/',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 365, // 1 year
+    });
+  }
+
+  // ── routing tags (storefront vs reserved) ─────────────────────────────────
   for (const p of APP_PATH_PREFIXES) {
-    if (pathname === p || pathname.startsWith(`${p}/`)) return NextResponse.next();
+    if (pathname === p || pathname.startsWith(`${p}/`)) return res;
   }
 
   const first = pathname.split('/').filter(Boolean)[0];
-  if (!first) return NextResponse.next(); // root /
+  if (!first) return res;
 
-  // The first segment exists. If it's a reserved slug, let Next's literal
-  // routes handle it (they take precedence). Tag the request so route handlers
-  // can short-circuit cheaply if they want.
-  const res = NextResponse.next();
   if (isReservedSlug(first)) {
     res.headers.set('x-threadly-route', 'reserved');
   } else if (!SLUG_PATTERN.test(first)) {
-    // Malformed — won't match a real store; pass through to Next's 404.
     res.headers.set('x-threadly-route', 'invalid-slug');
   } else {
     res.headers.set('x-threadly-route', 'storefront');

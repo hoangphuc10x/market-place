@@ -198,17 +198,43 @@ function Storefront({ store, products }: StorefrontProps) {
 function PickerPreview({ store }: PickerPreviewProps) {
   return (
     <div
-      className="flex h-full flex-col p-6 font-sans"
-      style={{ background: `linear-gradient(135deg, #fff 0%, hsl(var(--primary) / 0.3) 100%)` }}
+      className="flex h-full flex-col p-4 text-neutral-800"
+      style={{
+        background: `linear-gradient(135deg, #fff 0%, hsl(var(--primary) / 0.25) 100%)`,
+      }}
     >
-      <p className="text-[11px] font-medium" style={{ color: 'hsl(var(--primary))' }}>
-        ✿ pastel ✿
+      <p
+        className="text-[10px] font-medium"
+        style={{ color: 'hsl(var(--primary))' }}
+      >
+        ✿ welcome ✿
       </p>
-      <h3 className="mt-2 text-xl font-bold">{store.name}</h3>
-      <div className="mt-3 aspect-[4/3] flex-1 rounded-2xl border-4 border-white bg-white/40 shadow-md" />
-      <p className="mt-3 text-[10px] uppercase tracking-wider text-neutral-500">
-        Soft · Cute
+      <h3 className="mt-2 text-xl font-bold leading-tight">{store.name}</h3>
+      <p className="mt-1 line-clamp-1 text-[10px] text-neutral-500">
+        {store.theme.tagline ?? 'made with love ♡'}
       </p>
+      {/* soft rounded mini cards */}
+      <div className="mt-3 grid flex-1 grid-cols-2 gap-2">
+        <div className="rounded-2xl border-2 border-white bg-white/60 shadow-sm" />
+        <div
+          className="rounded-2xl border-2 border-white shadow-sm"
+          style={{ background: `hsl(var(--primary) / 0.15)` }}
+        />
+        <div
+          className="rounded-2xl border-2 border-white shadow-sm"
+          style={{ background: `hsl(var(--primary) / 0.1)` }}
+        />
+        <div className="rounded-2xl border-2 border-white bg-white/60 shadow-sm" />
+      </div>
+      <div className="mt-3 flex items-center justify-between">
+        <span
+          className="rounded-full px-3 py-1 text-[9px] font-semibold text-white shadow-sm"
+          style={{ backgroundColor: 'hsl(var(--primary))' }}
+        >
+          Shop ♡
+        </span>
+        <span className="text-[9px] text-neutral-500">/{store.slug || 'shop'}</span>
+      </div>
     </div>
   );
 }

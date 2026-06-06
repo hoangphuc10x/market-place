@@ -1,0 +1,272 @@
+{
+  "common": {
+    "back": "Back",
+    "continue": "Continue",
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading…",
+    "or": "or",
+    "language": "Language"
+  },
+  "header": {
+    "discover": "Discover",
+    "search": "Search",
+    "new": "New",
+    "signIn": "Sign in",
+    "openShop": "Open a shop"
+  },
+  "footer": {
+    "tagline": "A marketplace where every shop is its own storefront.",
+    "sections": {
+      "discover": "Discover",
+      "sell": "Sell",
+      "platform": "Platform"
+    },
+    "links": {
+      "browseShops": "Browse shops",
+      "search": "Search",
+      "openShop": "Open a shop",
+      "sellerDashboard": "Seller dashboard",
+      "about": "About",
+      "help": "Help",
+      "terms": "Terms"
+    }
+  },
+  "home": {
+    "tagline": "Marketplace for independent fashion",
+    "title": "Every shop is a <em>storefront</em>.",
+    "subtitle": "Threadly is a marketplace of independent fashion brands. Each seller has their own URL, their own theme, their own world — but discovery happens here.",
+    "ctaBrowse": "Browse shops",
+    "ctaOpen": "Open your shop",
+    "pitch": {
+      "url": {
+        "title": "Your own URL",
+        "body": "threadly.com/yourshop — share it on Instagram, TikTok, anywhere."
+      },
+      "theme": {
+        "title": "Pick a theme",
+        "body": "Three fashion-tuned themes to start. No design skills needed."
+      },
+      "fast": {
+        "title": "Live in 5 minutes",
+        "body": "Name your shop, pick a theme, add products. That's it."
+      }
+    },
+    "cta": {
+      "title": "Ready to start your shop?",
+      "subtitle": "Free to start. Pick your name, pick your theme, you're live.",
+      "button": "Open a shop"
+    }
+  },
+  "discover": {
+    "title": "Discover",
+    "subtitle": "Featured shops, trending pieces, new arrivals.",
+    "shopsToFollow": "Shops to follow",
+    "trendingPieces": "Trending pieces",
+    "browseAllShops": "Browse all shops →"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search shops, products, tags…"
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Cart will be grouped by shop. Each shop checks out into its own order."
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "noAccount": "New here?",
+      "createAccount": "Create an account"
+    },
+    "signup": {
+      "title": "Join Threadly",
+      "subtitle": "Free. Takes a minute.",
+      "displayName": "Display name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create account",
+      "hasAccount": "Already a member?",
+      "signIn": "Sign in"
+    }
+  },
+  "account": {
+    "greeting": "Hi, {name}",
+    "email": "Email",
+    "role": "Role",
+    "memberSince": "Member since",
+    "profileTitle": "My profile",
+    "profileSubtitle": "Manage your personal info.",
+    "displayName": "Display name",
+    "avatarUrl": "Avatar (URL)",
+    "avatarHint": "Paste an image URL. Leave blank to use your first initial.",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "saved": "Saved ✓",
+    "myShop": "My shop",
+    "noShop": "You don't have a shop yet.",
+    "openShop": "Open a shop →",
+    "viewStorefront": "View storefront",
+    "manageShop": "Manage shop",
+    "addProduct": "Add product",
+    "products": "Products",
+    "followers": "Followers"
+  },
+  "userMenu": {
+    "profile": "My account",
+    "orders": "Orders",
+    "myShop": "My shop",
+    "viewStorefront": "View storefront",
+    "sellerDashboard": "Manage shop",
+    "shopSettings": "Shop settings",
+    "openShop": "Open a shop",
+    "logout": "Sign out"
+  },
+  "seller": {
+    "home": {
+      "title": "Seller home",
+      "subtitle": "Dashboard placeholder. Open your shop to get started.",
+      "openShop": "Open a shop →"
+    },
+    "dashboard": {
+      "viewStorefront": "View storefront →",
+      "settings": "Shop settings",
+      "stats": {
+        "products": "Products",
+        "followers": "Followers",
+        "status": "Status"
+      },
+      "products": {
+        "title": "Products",
+        "empty": "No products yet. Add your first piece to go live.",
+        "addNew": "+ Add product",
+        "edit": "Edit",
+        "delete": "Delete",
+        "deleteConfirm": "Delete this product?",
+        "status": {
+          "ACTIVE": "Live",
+          "DRAFT": "Draft",
+          "ARCHIVED": "Archived"
+        }
+      }
+    },
+    "productForm": {
+      "newTitle": "Add product",
+      "editTitle": "Edit product",
+      "fields": {
+        "title": "Product title",
+        "description": "Description",
+        "tags": "Tags (comma separated)",
+        "images": "Product images",
+        "imageHint": "Paste image URLs, one per line (1-12 images).",
+        "variants": "Variants (size + price + stock)",
+        "variantSize": "Size",
+        "variantPrice": "Price (VND)",
+        "variantStock": "Stock",
+        "variantColor": "Color",
+        "addVariant": "+ Add variant",
+        "removeVariant": "Remove",
+        "details": "Details",
+        "material": "Material",
+        "care": "Care",
+        "origin": "Origin",
+        "status": "Status"
+      },
+      "save": "Save",
+      "saving": "Saving…",
+      "publish": "Save & publish",
+      "saveDraft": "Save draft"
+    },
+    "storeSettings": {
+      "title": "Shop settings",
+      "fields": {
+        "name": "Shop name",
+        "bio": "Bio (max 280 chars)",
+        "category": "Category",
+        "theme": "Theme",
+        "primaryColor": "Primary color",
+        "tagline": "Tagline",
+        "coverImage": "Cover image (URL)",
+        "logo": "Shop logo / Avatar (URL)"
+      },
+      "save": "Save changes",
+      "saving": "Saving…",
+      "saved": "Saved ✓"
+    },
+    "onboarding": {
+      "steps": {
+        "identity": "Name",
+        "category": "Category",
+        "theme": "Theme",
+        "review": "Review"
+      },
+      "identity": {
+        "title": "What's your shop called?",
+        "subtitle": "Your URL will be threadly.com/your-name. You can change the display name later, but the URL stays.",
+        "shopNameLabel": "Shop name",
+        "shopNamePlaceholder": "Linh Studio",
+        "urlLabel": "URL",
+        "urlPlaceholder": "linhstudio",
+        "slugStatus": {
+          "checking": "Checking…",
+          "available": "✓ Available — this URL is yours",
+          "invalid": "Use 3–32 lowercase letters, numbers, or dashes.",
+          "reserved": "This name is reserved.",
+          "taken": "Already taken.",
+          "trySuggestions": "Try:"
+        }
+      },
+      "category": {
+        "title": "What do you sell?",
+        "subtitle": "Pick what fits best — this guides our theme suggestion in the next step.",
+        "items": {
+          "STREETWEAR": "Streetwear",
+          "DESIGNER": "Designer",
+          "VINTAGE": "Vintage",
+          "HANDMADE": "Handmade",
+          "ACCESSORIES": "Accessories",
+          "SHOES": "Shoes",
+          "FORMAL": "Formal wear",
+          "ATHLEISURE": "Athleisure",
+          "KIDS": "Kids",
+          "OTHER": "Other"
+        }
+      },
+      "theme": {
+        "title": "Pick a theme",
+        "subtitle": "Each one is fashion-tuned. You can switch later from your shop settings.",
+        "recommended": "Recommended",
+        "primaryColor": "Primary color",
+        "colorTip": "Pro tip: pick something readable on both light and dark images.",
+        "tagline": "Tagline (optional)",
+        "taglinePlaceholder": "Slow fashion, made in Hà Nội."
+      },
+      "review": {
+        "title": "Ready to go live?",
+        "subtitle": "Double-check below. You can edit everything except your URL later.",
+        "labels": {
+          "shopName": "Shop name",
+          "url": "URL",
+          "category": "Category",
+          "theme": "Theme",
+          "primaryColor": "Primary color",
+          "tagline": "Tagline"
+        },
+        "submit": "Finish · Go live",
+        "submitting": "Going live…"
+      }
+    }
+  },
+  "storefront": {
+    "notFound": {
+      "title": "No shop named <code>{slug}</code>",
+      "subtitle": "This URL isn't taken yet. Want it? Open a shop and claim the name.",
+      "claim": "Claim /{slug}",
+      "browse": "Browse shops"
+    },
+    "welcome": "Welcome to Threadly"
+  }
+}

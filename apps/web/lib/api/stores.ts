@@ -7,6 +7,12 @@ import type {
 } from '@threadly/types';
 import { apiGet, apiPost } from './client';
 
+export async function fetchActiveStores(limit = 20): Promise<PublicStore[]> {
+  return apiGet<PublicStore[]>(`/v1/stores?limit=${limit}`, {
+    next: { revalidate: 60, tags: ['stores:list'] },
+  });
+}
+
 export async function fetchStoreBySlug(slug: string): Promise<PublicStore | null> {
   try {
     return await apiGet<PublicStore>(`/v1/stores/${encodeURIComponent(slug)}`, {

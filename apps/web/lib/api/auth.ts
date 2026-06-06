@@ -1,5 +1,11 @@
-import type { AuthResponse, LoginInput, SignupInput, User } from '@threadly/types';
-import { apiGet, apiPost } from './client';
+import type {
+  AuthResponse,
+  LoginInput,
+  SignupInput,
+  UpdateProfileInput,
+  User,
+} from '@threadly/types';
+import { apiGet, apiPatch, apiPost } from './client';
 
 export async function signup(input: SignupInput): Promise<AuthResponse> {
   return apiPost<AuthResponse>('/v1/auth/signup', input);
@@ -16,4 +22,8 @@ export async function fetchMe(): Promise<User | null> {
     if ((e as { status?: number }).status === 401) return null;
     throw e;
   }
+}
+
+export async function updateMyProfile(input: UpdateProfileInput): Promise<User> {
+  return apiPatch<User>('/v1/auth/me', input, { auth: true });
 }

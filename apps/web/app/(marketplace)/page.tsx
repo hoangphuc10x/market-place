@@ -1,75 +1,77 @@
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+import { FadeIn } from '@/components/motion/fade-in';
+import { FeaturedShops } from '@/components/marketplace/featured-shops';
 
-export default function MarketplaceHomePage() {
+export default async function MarketplaceHomePage() {
   return (
     <>
       <Hero />
+      <FeaturedShops />
       <Pitch />
       <SellerCTA />
     </>
   );
 }
 
-function Hero() {
+async function Hero() {
+  const t = await getTranslations('home');
   return (
     <section className="border-b border-border/60">
       <div className="mx-auto max-w-[1400px] px-6 py-20 md:py-28">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted px-3 py-1 text-xs">
-          <Sparkles className="h-3 w-3" />
-          Marketplace for independent fashion
-        </div>
-        <h1 className="mt-6 max-w-3xl text-5xl font-semibold tracking-tight md:text-7xl">
-          Every shop is a <span className="italic">storefront</span>.
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-          Threadly is a marketplace of independent fashion brands. Each seller has their own URL,
-          their own theme, their own world — but discovery happens here.
-        </p>
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Link
-            href="/discover"
-            className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-medium text-background hover:opacity-90"
-          >
-            Browse shops <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link
-            href="/seller/onboarding"
-            className="inline-flex h-11 items-center rounded-full border border-border bg-background px-6 text-sm font-medium hover:bg-muted"
-          >
-            Open your shop
-          </Link>
-        </div>
+        <FadeIn direction="down" distance={12} duration={0.4}>
+          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted px-3 py-1 text-xs">
+            <Sparkles className="h-3 w-3" />
+            {t('tagline')}
+          </div>
+        </FadeIn>
+        <FadeIn delay={0.1} distance={32}>
+          <h1 className="mt-6 max-w-3xl text-5xl font-semibold tracking-tight md:text-7xl">
+            {t.rich('title', { em: (c) => <span className="italic">{c}</span> })}
+          </h1>
+        </FadeIn>
+        <FadeIn delay={0.2}>
+          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">{t('subtitle')}</p>
+        </FadeIn>
+        <FadeIn delay={0.3}>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href="/discover"
+              className="inline-flex h-11 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-medium text-background hover:opacity-90"
+            >
+              {t('ctaBrowse')} <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/seller/onboarding"
+              className="inline-flex h-11 items-center rounded-full border border-border bg-background px-6 text-sm font-medium hover:bg-muted"
+            >
+              {t('ctaOpen')}
+            </Link>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
 }
 
-function Pitch() {
+async function Pitch() {
+  const t = await getTranslations('home.pitch');
   const items = [
-    {
-      title: 'Your own URL',
-      body: 'threadly.com/yourshop — share it on Instagram, TikTok, anywhere.',
-    },
-    {
-      title: 'Pick a theme',
-      body: 'Three fashion-tuned themes to start. No design skills needed.',
-    },
-    {
-      title: 'Live in 5 minutes',
-      body: 'Name your shop, pick a theme, add products. That’s it.',
-    },
+    { title: t('url.title'), body: t('url.body') },
+    { title: t('theme.title'), body: t('theme.body') },
+    { title: t('fast.title'), body: t('fast.body') },
   ];
   return (
     <section className="border-b border-border/60 py-20">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="grid gap-10 md:grid-cols-3">
           {items.map((it, i) => (
-            <div key={it.title}>
+            <FadeIn key={it.title} delay={0.1 * i} distance={32}>
               <p className="text-xs text-muted-foreground">0{i + 1}</p>
               <h3 className="mt-2 text-2xl font-semibold tracking-tight">{it.title}</h3>
               <p className="mt-2 text-muted-foreground">{it.body}</p>
-            </div>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -77,23 +79,22 @@ function Pitch() {
   );
 }
 
-function SellerCTA() {
+async function SellerCTA() {
+  const t = await getTranslations('home.cta');
   return (
     <section className="py-20">
-      <div className="mx-auto max-w-3xl px-6 text-center">
-        <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">
-          Ready to start your shop?
-        </h2>
-        <p className="mt-4 text-muted-foreground">
-          Free to start. Pick your name, pick your theme, you’re live.
-        </p>
-        <Link
-          href="/seller/onboarding"
-          className="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-7 text-sm font-medium text-background hover:opacity-90"
-        >
-          Open a shop <ArrowRight className="h-4 w-4" />
-        </Link>
-      </div>
+      <FadeIn>
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">{t('title')}</h2>
+          <p className="mt-4 text-muted-foreground">{t('subtitle')}</p>
+          <Link
+            href="/seller/onboarding"
+            className="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-7 text-sm font-medium text-background hover:opacity-90"
+          >
+            {t('button')} <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </FadeIn>
     </section>
   );
 }

@@ -10,6 +10,7 @@ import type {
   AuthResponse,
   LoginInput,
   SignupInput,
+  UpdateProfileInput,
   User,
   UserRole,
 } from '@threadly/types';
@@ -62,6 +63,17 @@ export class AuthService {
   async getById(id: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({ where: { id } });
     return user ? this.toPublic(user) : null;
+  }
+
+  async updateProfile(id: string, input: UpdateProfileInput): Promise<User> {
+    const user = await this.prisma.user.update({
+      where: { id },
+      data: {
+        ...(input.displayName !== undefined ? { displayName: input.displayName } : {}),
+        ...(input.avatarUrl !== undefined ? { avatarUrl: input.avatarUrl } : {}),
+      },
+    });
+    return this.toPublic(user);
   }
 
   /** Promote user to SELLER role on first store creation. */

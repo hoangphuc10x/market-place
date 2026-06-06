@@ -1,0 +1,146 @@
+# Production stack — builds images from Dockerfiles and wires everything together.
+#
+# Usage:
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# This is intentionally separate from docker-compose.yml (which provisions
+# only dev infra). Don't merge them — different lifecycle, different secrets.
+#
+# Provide a .env.production file in the repo root with at least:
+#   POSTGRES_PASSWORD     — strong, generated, never committed
+#   JWT_SECRET            — `openssl rand -base64 48`
+#   AUTH_SECRET           — `openssl rand -base64 48`
+#   MEILISEARCH_KEY       — `openssl rand -base64 32`
+#   PUBLIC_API_URL        — what browsers will use, e.g. https://api.threadly.example
+#   PUBLIC_APP_URL        — e.g. https://threadly.example
+
+name: threadly-prod
+
+x-restart: &restart
+  restart: unless-stopped
+
+services:
+  # ─── Infra ──────────────────────────────────────────────────────────
+  postgres:
+    <<: *restart
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: threadly
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.production}
+      POSTGRES_DB: threadly
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U threadly -d threadly']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    # Bind only to localhost — Postgres should NEVER be on a public interface.
+    # Front it with a reverse proxy or peer over a private network instead.
+    ports:
+      - '127.0.0.1:5432:5432'
+
+  redis:
+    <<: *restart
+    image: redis:7-alpine
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  meilisearch:
+    <<: *restart
+    image: getmeili/meilisearch:v1.11
+    environment:
+      MEILI_MASTER_KEY: ${MEILISEARCH_KEY:?set MEILISEARCH_KEY in .env.production}
+      MEILI_ENV: production
+    volumes:
+      - meili-data:/meili_data
+
+  # ─── One-shot migration ─────────────────────────────────────────────
+  # Runs `prisma migrate deploy` once, then exits. The api service waits
+  # for this to complete successfully before starting.
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://threadly:${POSTGRES_PASSWORD}@postgres:5432/threadly?schema=public
+    # Switch back to root briefly for the migrate step (uses prisma CLI which
+    # writes lockfiles). Restart `no` so it stays exited after success.
+    user: root
+    working_dir: /app/packages/db
+    command: ['npx', 'prisma', 'migrate', 'deploy']
+    restart: 'no'
+
+  # ─── App services ───────────────────────────────────────────────────
+  api:
+    <<: *restart
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      API_PORT: 4000
+      DATABASE_URL: postgresql://threadly:${POSTGRES_PASSWORD}@postgres:5432/threadly?schema=public
+      REDIS_URL: redis://redis:6379
+      MEILISEARCH_URL: http://meilisearch:7700
+      MEILISEARCH_KEY: ${MEILISEARCH_KEY}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env.production}
+      JWT_EXPIRES_IN: 7d
+      NEXT_PUBLIC_APP_URL: ${PUBLIC_APP_URL:?set PUBLIC_APP_URL in .env.production}
+      # R2 / payment creds passed through if set
+      R2_ACCOUNT_ID: ${R2_ACCOUNT_ID:-}
+      R2_ACCESS_KEY_ID: ${R2_ACCESS_KEY_ID:-}
+      R2_SECRET_ACCESS_KEY: ${R2_SECRET_ACCESS_KEY:-}
+      R2_BUCKET: ${R2_BUCKET:-}
+      R2_PUBLIC_URL: ${R2_PUBLIC_URL:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+    expose:
+      - '4000'
+    # Comment this out and put nginx/Caddy in front in real prod.
+    ports:
+      - '127.0.0.1:4000:4000'
+
+  web:
+    <<: *restart
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        # NEXT_PUBLIC_* must be passed as build-args — they bake into the bundle.
+        NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL:?set PUBLIC_API_URL in .env.production}
+        NEXT_PUBLIC_APP_URL: ${PUBLIC_APP_URL}
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+      # Server-side calls from web → api use the internal docker network.
+      # Browser-side calls use the baked-in NEXT_PUBLIC_API_URL.
+      INTERNAL_API_URL: http://api:4000
+      AUTH_SECRET: ${AUTH_SECRET:?set AUTH_SECRET in .env.production}
+    ports:
+      - '127.0.0.1:3000:3000'
+
+volumes:
+  postgres-data:
+  redis-data:
+  meili-data:
