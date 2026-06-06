@@ -2,11 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import {
-  THEME_CATALOG,
-  onboardingPayloadSchema,
-  type OnboardingPayload,
-} from '@threadly/types';
+import { THEME_CATALOG, onboardingPayloadSchema, type OnboardingPayload } from '@threadly/types';
 import { cn } from '@/lib/cn';
 import { finishOnboardingAction } from '../actions';
 import type { WizardState } from './types';

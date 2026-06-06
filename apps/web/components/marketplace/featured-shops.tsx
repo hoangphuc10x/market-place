@@ -15,13 +15,8 @@ export async function FeaturedShops() {
       <div className="mx-auto max-w-[1400px]">
         <FadeIn direction="up">
           <div className="mb-8 flex items-baseline justify-between px-6">
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              Shops on Threadly
-            </h2>
-            <Link
-              href="/discover"
-              className="text-sm text-muted-foreground hover:text-foreground"
-            >
+            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">Shops on Threadly</h2>
+            <Link href="/discover" className="text-sm text-muted-foreground hover:text-foreground">
               {t('discover')} →
             </Link>
           </div>

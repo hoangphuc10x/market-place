@@ -32,8 +32,7 @@ export default async function SellerHome() {
       <section className="mt-12">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-2xl font-semibold tracking-tight">
-            {t('products.title')}{' '}
-            <span className="text-muted-foreground">({products.length})</span>
+            {t('products.title')} <span className="text-muted-foreground">({products.length})</span>
           </h2>
           <Link
             href="/seller/products/new"
@@ -70,9 +69,7 @@ function StoreHeader({
           /{store.slug}
         </p>
         <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">{store.name}</h1>
-        {store.theme.tagline && (
-          <p className="mt-1 text-muted-foreground">{store.theme.tagline}</p>
-        )}
+        {store.theme.tagline && <p className="mt-1 text-muted-foreground">{store.theme.tagline}</p>}
       </div>
       <div className="flex items-center gap-2">
         <Link
@@ -207,9 +204,7 @@ function StatusBadge({
         ? 'bg-amber-100 text-amber-700'
         : 'bg-neutral-100 text-neutral-600';
   return (
-    <span
-      className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${style}`}
-    >
+    <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${style}`}>
       {tStatus(status)}
     </span>
   );

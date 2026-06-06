@@ -78,11 +78,7 @@ export async function apiSend<T>(
   return parse<T>(res);
 }
 
-export const apiPost = <T>(p: string, b?: unknown, o?: ApiOptions) =>
-  apiSend<T>('POST', p, b, o);
-export const apiPut = <T>(p: string, b?: unknown, o?: ApiOptions) =>
-  apiSend<T>('PUT', p, b, o);
-export const apiPatch = <T>(p: string, b?: unknown, o?: ApiOptions) =>
-  apiSend<T>('PATCH', p, b, o);
-export const apiDelete = <T>(p: string, o?: ApiOptions) =>
-  apiSend<T>('DELETE', p, undefined, o);
+export const apiPost = <T>(p: string, b?: unknown, o?: ApiOptions) => apiSend<T>('POST', p, b, o);
+export const apiPut = <T>(p: string, b?: unknown, o?: ApiOptions) => apiSend<T>('PUT', p, b, o);
+export const apiPatch = <T>(p: string, b?: unknown, o?: ApiOptions) => apiSend<T>('PATCH', p, b, o);
+export const apiDelete = <T>(p: string, o?: ApiOptions) => apiSend<T>('DELETE', p, undefined, o);

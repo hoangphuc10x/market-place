@@ -36,10 +36,8 @@ export function Marquee({
       className={cn('group/marquee relative w-full overflow-hidden', className)}
       // Edge fade — keeps cards from popping in/out abruptly.
       style={{
-        maskImage:
-          'linear-gradient(to right, transparent, black 5%, black 95%, transparent)',
-        WebkitMaskImage:
-          'linear-gradient(to right, transparent, black 5%, black 95%, transparent)',
+        maskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent, black 5%, black 95%, transparent)',
       }}
     >
       <motion.div

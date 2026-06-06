@@ -1,0 +1,24 @@
+echo "🚦 Pre-commit checks (format · lint · typecheck)..."
+
+# 1. Auto-format staged files with prettier
+echo "→ prettier (staged files)"
+pnpm exec lint-staged || {
+  echo "❌ Prettier formatting failed."
+  exit 1
+}
+
+# 2. Lint — same as CI
+echo "→ lint"
+pnpm lint || {
+  echo "❌ Lint failed. Fix the errors above before committing."
+  exit 1
+}
+
+# 3. Typecheck — same as CI
+echo "→ typecheck"
+pnpm typecheck || {
+  echo "❌ Typecheck failed. Fix the type errors above before committing."
+  exit 1
+}
+
+echo "✅ All checks passed — committing."

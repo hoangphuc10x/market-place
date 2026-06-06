@@ -21,7 +21,10 @@ export const variantAttributesSchema = z.object({
   /** Free-form numeric size (e.g. shoe "39", waist "28"). */
   customSize: z.string().max(16).nullable(),
   color: z.string().max(40).nullable(),
-  colorHex: z.string().regex(/^#[0-9a-fA-F]{6}$/).nullable(),
+  colorHex: z
+    .string()
+    .regex(/^#[0-9a-fA-F]{6}$/)
+    .nullable(),
 });
 export type VariantAttributes = z.infer<typeof variantAttributesSchema>;
 

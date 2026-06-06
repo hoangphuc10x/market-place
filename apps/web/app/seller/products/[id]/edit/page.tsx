@@ -6,11 +6,7 @@ import { ProductForm } from '../../product-form';
 
 export const metadata = { title: 'Edit product' };
 
-export default async function EditProductPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const t = await getTranslations('seller.productForm');
   const store = await fetchMyStore();
   if (!store) redirect('/seller/onboarding');

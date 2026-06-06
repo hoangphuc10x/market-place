@@ -45,9 +45,7 @@ function Hero({ store }: { store: StorefrontProps['store'] }) {
         <h1 className="mt-8 text-[clamp(3rem,10vw,9rem)] font-black uppercase leading-[0.85] tracking-tight">
           {name}
         </h1>
-        {theme.tagline && (
-          <p className="mt-8 max-w-xl text-xl font-medium">{theme.tagline}</p>
-        )}
+        {theme.tagline && <p className="mt-8 max-w-xl text-xl font-medium">{theme.tagline}</p>}
         <a
           href="#all-products"
           className="mt-12 inline-block border-2 border-white px-8 py-3 font-mono text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black"
@@ -59,10 +57,21 @@ function Hero({ store }: { store: StorefrontProps['store'] }) {
   );
 }
 
-function FeatureCard({ product, storeSlug, large = false }: { product: Product; storeSlug: string; large?: boolean }) {
+function FeatureCard({
+  product,
+  storeSlug,
+  large = false,
+}: {
+  product: Product;
+  storeSlug: string;
+  large?: boolean;
+}) {
   const primary = product.images[0];
   return (
-    <a href={`/${storeSlug}/p/${product.slug}`} className="group relative block overflow-hidden bg-neutral-100">
+    <a
+      href={`/${storeSlug}/p/${product.slug}`}
+      className="group relative block overflow-hidden bg-neutral-100"
+    >
       <div className={clsx(large ? 'aspect-[3/4]' : 'aspect-square')}>
         {primary && (
           // eslint-disable-next-line @next/next/no-img-element
@@ -93,8 +102,7 @@ function FeaturedProducts({ products, storeSlug }: { products: Product[]; storeS
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="mb-10 flex items-end justify-between">
           <h2 className="text-4xl font-black uppercase tracking-tight md:text-6xl">
-            Featured /
-            <span style={{ color: 'hsl(var(--primary))' }}>{` ${featured.length}`}</span>
+            Featured /<span style={{ color: 'hsl(var(--primary))' }}>{` ${featured.length}`}</span>
           </h2>
           <a
             href="#all-products"
@@ -131,7 +139,12 @@ function Lookbook({ products }: { products: Product[] }) {
           {shots.map((img) => (
             <div key={img.url} className="aspect-[3/4] overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img.url} alt="" className="h-full w-full object-cover grayscale hover:grayscale-0 transition-all" loading="lazy" />
+              <img
+                src={img.url}
+                alt=""
+                className="h-full w-full object-cover grayscale hover:grayscale-0 transition-all"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>
@@ -189,9 +202,7 @@ function Storefront({ store, products }: StorefrontProps) {
         <AllProducts products={products} storeSlug={store.slug} />
       )}
       <footer className="bg-black py-12 text-center text-white">
-        <p className="font-mono text-xs uppercase tracking-[0.3em]">
-          © {store.name} · Threadly
-        </p>
+        <p className="font-mono text-xs uppercase tracking-[0.3em]">© {store.name} · Threadly</p>
       </footer>
     </div>
   );
@@ -220,10 +231,7 @@ function PickerPreview({ store }: PickerPreviewProps) {
         <div className="bg-neutral-900" />
         <div className="bg-neutral-800" />
         <div className="col-span-2 bg-neutral-900" />
-        <div
-          className="bg-white/10"
-          style={{ borderTop: '2px solid hsl(var(--primary))' }}
-        />
+        <div className="bg-white/10" style={{ borderTop: '2px solid hsl(var(--primary))' }} />
       </div>
       <div className="mt-3 flex items-center justify-between">
         <span

@@ -101,10 +101,7 @@ export function ProductForm({ initial }: { initial?: Product }) {
   const addVariant = () =>
     setState((s) => ({
       ...s,
-      variants: [
-        ...s.variants,
-        { size: 'M', color: '', colorHex: '', price: 500_000, stock: 0 },
-      ],
+      variants: [...s.variants, { size: 'M', color: '', colorHex: '', price: 500_000, stock: 0 }],
     }));
 
   const removeVariant = (idx: number) =>
@@ -116,9 +113,7 @@ export function ProductForm({ initial }: { initial?: Product }) {
   const submit = (status: ProductStatus) => {
     setError(null);
 
-    const images = state.images
-      .slice(0, 12)
-      .map((url, position) => ({ url, position }));
+    const images = state.images.slice(0, 12).map((url, position) => ({ url, position }));
 
     if (!state.title.trim()) {
       setError('Vui lòng nhập tên sản phẩm');
@@ -205,7 +200,14 @@ export function ProductForm({ initial }: { initial?: Product }) {
     >
       {/* ── Basic ────────────────────────────────────────────────────────── */}
       <section className="space-y-4">
-        <Field label={<>{t('fields.title')}<Req /></>}>
+        <Field
+          label={
+            <>
+              {t('fields.title')}
+              <Req />
+            </>
+          }
+        >
           <input
             value={state.title}
             onChange={(e) => update('title', e.target.value)}
@@ -237,7 +239,12 @@ export function ProductForm({ initial }: { initial?: Product }) {
       {/* ── Images ───────────────────────────────────────────────────────── */}
       <section className="space-y-3">
         <Field
-          label={<>{t('fields.images')}<Req /></>}
+          label={
+            <>
+              {t('fields.images')}
+              <Req />
+            </>
+          }
           hint="Click hoặc kéo-thả file để upload (JPG/PNG/WebP, max 8 MB)"
         >
           <ImageUploader

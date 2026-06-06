@@ -100,9 +100,7 @@ export function StoreSettingsForm({ initial }: { initial: PublicStore }) {
       <Field label={t('fields.category')}>
         <select
           value={state.category}
-          onChange={(e) =>
-            setState((s) => ({ ...s, category: e.target.value as StoreCategory }))
-          }
+          onChange={(e) => setState((s) => ({ ...s, category: e.target.value as StoreCategory }))}
           className="input"
         >
           {CATEGORIES.map((c) => (

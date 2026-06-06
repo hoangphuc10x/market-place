@@ -1,17 +1,8 @@
 'use server';
 
 import { revalidatePath, revalidateTag } from 'next/cache';
-import type {
-  CreateProductInput,
-  Product,
-  UpdateProductInput,
-} from '@threadly/types';
-import {
-  createMyProduct,
-  deleteMyProduct,
-  fetchMyStore,
-  updateMyProduct,
-} from '@/lib/api/seller';
+import type { CreateProductInput, Product, UpdateProductInput } from '@threadly/types';
+import { createMyProduct, deleteMyProduct, fetchMyStore, updateMyProduct } from '@/lib/api/seller';
 
 async function bustCachesForStore() {
   const store = await fetchMyStore();
@@ -30,10 +21,7 @@ export async function createProductAction(input: CreateProductInput): Promise<Pr
   return product;
 }
 
-export async function updateProductAction(
-  id: string,
-  input: UpdateProductInput,
-): Promise<Product> {
+export async function updateProductAction(id: string, input: UpdateProductInput): Promise<Product> {
   const product = await updateMyProduct(id, input);
   await bustCachesForStore();
   return product;

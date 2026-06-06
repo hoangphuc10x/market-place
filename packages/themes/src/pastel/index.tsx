@@ -176,7 +176,10 @@ function AllProducts({ products, storeSlug }: { products: Product[]; storeSlug: 
 function Storefront({ store, products }: StorefrontProps) {
   const sections = store.theme.sections;
   return (
-    <div className="font-sans text-neutral-800 antialiased" style={{ backgroundColor: 'hsl(var(--background))' }}>
+    <div
+      className="font-sans text-neutral-800 antialiased"
+      style={{ backgroundColor: 'hsl(var(--background))' }}
+    >
       {sections.includes('hero') && <Hero store={store} />}
       {sections.includes('featured-products') && (
         <FeaturedProducts products={products} storeSlug={store.slug} />
@@ -186,10 +189,11 @@ function Storefront({ store, products }: StorefrontProps) {
       {sections.includes('all-products') && (
         <AllProducts products={products} storeSlug={store.slug} />
       )}
-      <footer className="py-12 text-center" style={{ backgroundColor: 'hsl(var(--primary) / 0.15)' }}>
-        <p className="text-sm">
-          {store.name} ♡ made on Threadly
-        </p>
+      <footer
+        className="py-12 text-center"
+        style={{ backgroundColor: 'hsl(var(--primary) / 0.15)' }}
+      >
+        <p className="text-sm">{store.name} ♡ made on Threadly</p>
       </footer>
     </div>
   );
@@ -203,10 +207,7 @@ function PickerPreview({ store }: PickerPreviewProps) {
         background: `linear-gradient(135deg, #fff 0%, hsl(var(--primary) / 0.25) 100%)`,
       }}
     >
-      <p
-        className="text-[10px] font-medium"
-        style={{ color: 'hsl(var(--primary))' }}
-      >
+      <p className="text-[10px] font-medium" style={{ color: 'hsl(var(--primary))' }}>
         ✿ welcome ✿
       </p>
       <h3 className="mt-2 text-xl font-bold leading-tight">{store.name}</h3>

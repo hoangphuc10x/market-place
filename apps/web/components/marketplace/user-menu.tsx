@@ -58,9 +58,7 @@ export function UserMenu({ viewer, myShopSlug, myShopName }: UserMenuProps) {
       >
         <Avatar viewer={viewer} initials={initials} size={28} />
         <span className="hidden max-w-[140px] truncate md:inline">{viewer.displayName}</span>
-        <ChevronDown
-          className={cn('h-3.5 w-3.5 transition-transform', open && 'rotate-180')}
-        />
+        <ChevronDown className={cn('h-3.5 w-3.5 transition-transform', open && 'rotate-180')} />
       </button>
 
       {open && (
@@ -87,7 +85,11 @@ export function UserMenu({ viewer, myShopSlug, myShopName }: UserMenuProps) {
               <Item href="/account" icon={<ProfileIcon className="h-4 w-4" />} onSelect={close}>
                 {t('profile')}
               </Item>
-              <Item href="/account/orders" icon={<ShoppingBag className="h-4 w-4" />} onSelect={close}>
+              <Item
+                href="/account/orders"
+                icon={<ShoppingBag className="h-4 w-4" />}
+                onSelect={close}
+              >
                 {t('orders')}
               </Item>
             </Section>

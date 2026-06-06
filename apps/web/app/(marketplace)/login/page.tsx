@@ -47,7 +47,10 @@ export default async function LoginPage() {
   );
 }
 
-function Field({ label, ...rest }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+function Field({
+  label,
+  ...rest
+}: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <label className="block">
       <span className="text-sm font-medium">{label}</span>

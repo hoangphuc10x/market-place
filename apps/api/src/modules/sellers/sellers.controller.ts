@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import {
   createProductInputSchema,
   onboardingPayloadSchema,
@@ -82,10 +73,7 @@ export class SellersController {
   }
 
   @Get('me/products/:id')
-  myProduct(
-    @CurrentUser() user: JwtPayload,
-    @Param('id') id: string,
-  ): Promise<Product> {
+  myProduct(@CurrentUser() user: JwtPayload, @Param('id') id: string): Promise<Product> {
     return this.products.getForOwner(user.sub, id);
   }
 
@@ -108,10 +96,7 @@ export class SellersController {
   }
 
   @Delete('me/products/:id')
-  deleteProduct(
-    @CurrentUser() user: JwtPayload,
-    @Param('id') id: string,
-  ): Promise<{ id: string }> {
+  deleteProduct(@CurrentUser() user: JwtPayload, @Param('id') id: string): Promise<{ id: string }> {
     return this.products.remove(user.sub, id);
   }
 }

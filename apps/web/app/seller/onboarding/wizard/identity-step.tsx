@@ -131,10 +131,8 @@ function SlugStatusLine({
   if (status === 'idle') return null;
   if (status === 'checking')
     return <p className="mt-2 text-sm text-muted-foreground">{t('checking')}</p>;
-  if (status === 'ok')
-    return <p className="mt-2 text-sm text-emerald-600">{t('available')}</p>;
-  if (status === 'invalid')
-    return <p className="mt-2 text-sm text-destructive">{t('invalid')}</p>;
+  if (status === 'ok') return <p className="mt-2 text-sm text-emerald-600">{t('available')}</p>;
+  if (status === 'invalid') return <p className="mt-2 text-sm text-destructive">{t('invalid')}</p>;
 
   return (
     <div className="mt-2 text-sm">

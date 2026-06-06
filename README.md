@@ -28,6 +28,7 @@ pnpm dev
 ```
 
 Visit:
+
 - `http://localhost:3000` — marketplace home
 - `http://localhost:3000/linhstudio` — seeded demo storefront (Atelier theme)
 - `http://localhost:3000/seller/onboarding` — create your own shop
@@ -75,9 +76,9 @@ The `migrate` service runs `prisma migrate deploy` once at startup, then the
 
 ### Image sizes (after build)
 
-| Image | Size | Notes |
-|---|---|---|
-| `threadly-web` | ~180 MB | Next.js standalone on alpine |
+| Image          | Size    | Notes                                                                                       |
+| -------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `threadly-web` | ~180 MB | Next.js standalone on alpine                                                                |
 | `threadly-api` | ~450 MB | debian-slim + Prisma engine + full monorepo (room to shrink with `pnpm prune --prod` later) |
 
 ## Repo layout
@@ -116,15 +117,15 @@ packages/
 
 ## Architecture decisions
 
-| Decision | Reason |
-|---|---|
-| **Route-based storefront** (`/[slug]`) | Subdomain wildcards add SSL/DNS pain. Routes ship faster, SEO is fine. |
-| **Theme system, not page builder** | Three curated themes cover 80% of fashion sellers. "3 minutes to live" beats infinite flexibility. |
-| **Single Postgres, row-level multi-tenancy** (`storeId` FK) | Scales to ~10k stores without sharding. Schema-per-tenant only for enterprise later. |
-| **Build commerce on Nest, skip MedusaJS** | Medusa is single-store at heart; multi-vendor + Stripe Connect would need custom layer anyway. Owning the model = scale freedom. |
-| **Zod-first DTOs in `@threadly/types`** | One schema = backend validation + frontend types + form validation. No drift. |
-| **`RESERVED_SLUGS` enforced in 3 places** | API rejects on create; middleware tags requests; layout double-checks. Defense in depth against route collisions. |
-| **Money as integer minor units** | VND has no decimals; USD stored as cents. No float math, ever. |
+| Decision                                                    | Reason                                                                                                                           |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Route-based storefront** (`/[slug]`)                      | Subdomain wildcards add SSL/DNS pain. Routes ship faster, SEO is fine.                                                           |
+| **Theme system, not page builder**                          | Three curated themes cover 80% of fashion sellers. "3 minutes to live" beats infinite flexibility.                               |
+| **Single Postgres, row-level multi-tenancy** (`storeId` FK) | Scales to ~10k stores without sharding. Schema-per-tenant only for enterprise later.                                             |
+| **Build commerce on Nest, skip MedusaJS**                   | Medusa is single-store at heart; multi-vendor + Stripe Connect would need custom layer anyway. Owning the model = scale freedom. |
+| **Zod-first DTOs in `@threadly/types`**                     | One schema = backend validation + frontend types + form validation. No drift.                                                    |
+| **`RESERVED_SLUGS` enforced in 3 places**                   | API rejects on create; middleware tags requests; layout double-checks. Defense in depth against route collisions.                |
+| **Money as integer minor units**                            | VND has no decimals; USD stored as cents. No float math, ever.                                                                   |
 
 ## What's done (MVP scaffold)
 

@@ -1,0 +1,14 @@
+# Build output
+**/dist/**
+**/.next/**
+**/.turbo/**
+**/coverage/**
+node_modules/
+
+# Generated
+**/prisma/generated/**
+pnpm-lock.yaml
+
+# Misc
+*.min.js
+*.min.css

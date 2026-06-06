@@ -25,9 +25,7 @@ export function StepIndicator({ current }: { current: OnboardingStep }) {
             >
               {done ? <Check className="h-3 w-3" /> : i + 1}
             </span>
-            <span className={cn(active ? 'font-medium' : 'text-muted-foreground')}>
-              {t(s)}
-            </span>
+            <span className={cn(active ? 'font-medium' : 'text-muted-foreground')}>{t(s)}</span>
             {i < ONBOARDING_STEPS.length - 1 && (
               <span className="ml-1 h-px w-8 bg-border" aria-hidden />
             )}

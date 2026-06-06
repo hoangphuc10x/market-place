@@ -1,8 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcryptjs';
 import { PrismaService } from '../../prisma/prisma.service';
@@ -78,12 +74,14 @@ export class AuthService {
 
   /** Promote user to SELLER role on first store creation. */
   async promoteToSeller(userId: string): Promise<void> {
-    await this.prisma.user.update({
-      where: { id: userId, role: 'BUYER' },
-      data: { role: 'SELLER' },
-    }).catch(() => {
-      // ignore if already not BUYER
-    });
+    await this.prisma.user
+      .update({
+        where: { id: userId, role: 'BUYER' },
+        data: { role: 'SELLER' },
+      })
+      .catch(() => {
+        // ignore if already not BUYER
+      });
   }
 
   private toPublic(u: DbUser): User {

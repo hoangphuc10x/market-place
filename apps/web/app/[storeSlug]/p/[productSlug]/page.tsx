@@ -23,7 +23,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<Pa
   return (
     <div className="bg-background text-foreground">
       <div className="mx-auto max-w-[1400px] px-6 py-12">
-        <Link href={`/${storeSlug}`} className="text-sm text-muted-foreground hover:text-foreground">
+        <Link
+          href={`/${storeSlug}`}
+          className="text-sm text-muted-foreground hover:text-foreground"
+        >
           ← {store.name}
         </Link>
         <div className="mt-8 grid gap-10 md:grid-cols-2">
@@ -82,7 +85,13 @@ function DetailRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function VariantPicker({ product }: { product: { variants: { id: string; attributes: { size: string | null; color: string | null } }[] } }) {
+function VariantPicker({
+  product,
+}: {
+  product: {
+    variants: { id: string; attributes: { size: string | null; color: string | null } }[];
+  };
+}) {
   const sizes = Array.from(
     new Set(product.variants.map((v) => v.attributes.size).filter((s): s is string => !!s)),
   );

@@ -36,11 +36,7 @@ export default async function AccountPage() {
       <section className="mt-12">
         <h2 className="mb-4 text-2xl font-semibold tracking-tight">{t('myShop')}</h2>
 
-        {store ? (
-          <ShopOverview store={store} products={products} t={t} />
-        ) : (
-          <NoShopCard t={t} />
-        )}
+        {store ? <ShopOverview store={store} products={products} t={t} /> : <NoShopCard t={t} />}
       </section>
     </div>
   );
@@ -63,11 +59,7 @@ async function ShopOverview({
       <div className="relative h-32 overflow-hidden bg-muted">
         {store.theme.coverImageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={store.theme.coverImageUrl}
-            alt=""
-            className="h-full w-full object-cover"
-          />
+          <img src={store.theme.coverImageUrl} alt="" className="h-full w-full object-cover" />
         ) : (
           <div
             className="h-full w-full"
@@ -206,11 +198,7 @@ function MiniProductCard({ product }: { product: Product }) {
   );
 }
 
-function NoShopCard({
-  t,
-}: {
-  t: Awaited<ReturnType<typeof getTranslations<'account'>>>;
-}) {
+function NoShopCard({ t }: { t: Awaited<ReturnType<typeof getTranslations<'account'>>> }) {
   return (
     <div className="rounded-xl border-2 border-dashed border-border bg-muted/30 p-10 text-center">
       <Store className="mx-auto h-10 w-10 text-muted-foreground" />

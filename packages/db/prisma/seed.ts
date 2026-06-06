@@ -8,13 +8,7 @@
  * Determinism: `faker.seed(42)` makes runs reproducible. Bump the number when
  * you want a new shuffle (or pass --rand for non-deterministic).
  */
-import {
-  PrismaClient,
-  ProductStatus,
-  StoreCategory,
-  StoreStatus,
-  UserRole,
-} from '@prisma/client';
+import { PrismaClient, ProductStatus, StoreCategory, StoreStatus, UserRole } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import { hash } from 'bcryptjs';
 
@@ -183,11 +177,7 @@ const PRODUCT_TEMPLATES: Record<StoreCategory, string[]> = {
     'Soft Crop Top — {{color}}',
     'Tech Track Pant — {{color}}',
   ],
-  KIDS: [
-    'Bear Onesie — {{color}}',
-    'Mini Tee — {{color}}',
-    'Pull-On Pants — {{color}}',
-  ],
+  KIDS: ['Bear Onesie — {{color}}', 'Mini Tee — {{color}}', 'Pull-On Pants — {{color}}'],
   OTHER: ['Mystery Piece — {{color}}'],
 };
 
@@ -342,7 +332,7 @@ async function main() {
             body: faker.helpers.arrayElement([
               'Great quality, exactly as pictured.',
               'Fabric feels lovely. Sizing runs a touch large.',
-              "Shipped fast, packaging was beautiful.",
+              'Shipped fast, packaging was beautiful.',
               "I'd buy from this shop again.",
               'Fits perfect. Love the color.',
               null,

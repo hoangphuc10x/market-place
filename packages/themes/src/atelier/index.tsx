@@ -62,10 +62,7 @@ function Hero({ store }: { store: StorefrontProps['store'] }) {
 function ProductCard({ product, storeSlug }: { product: Product; storeSlug: string }) {
   const primary = product.images[0];
   return (
-    <a
-      href={`/${storeSlug}/p/${product.slug}`}
-      className="group block"
-    >
+    <a href={`/${storeSlug}/p/${product.slug}`} className="group block">
       <div className="aspect-[4/5] overflow-hidden bg-neutral-100">
         {primary && (
           // eslint-disable-next-line @next/next/no-img-element
@@ -197,9 +194,7 @@ function PickerPreview({ store }: PickerPreviewProps) {
         </p>
         <p className="font-mono text-[9px] text-neutral-400">··</p>
       </div>
-      <h3 className="mt-3 font-serif text-2xl leading-tight tracking-tight">
-        {store.name}
-      </h3>
+      <h3 className="mt-3 font-serif text-2xl leading-tight tracking-tight">{store.name}</h3>
       <p className="mt-1 line-clamp-1 font-mono text-[9px] uppercase tracking-[0.2em] text-neutral-500">
         {store.theme.tagline ?? 'Slow fashion'}
       </p>
