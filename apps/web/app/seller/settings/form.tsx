@@ -11,6 +11,8 @@ import {
   type UpdateStoreInput,
 } from '@threadly/types';
 import { cn } from '@/lib/cn';
+import { AvatarUploader } from '@/components/forms/avatar-uploader';
+import { CoverUploader } from '@/components/forms/cover-uploader';
 import { updateStoreAction } from './actions';
 
 const CATEGORIES: StoreCategory[] = [
@@ -168,47 +170,25 @@ export function StoreSettingsForm({ initial }: { initial: PublicStore }) {
         />
       </Field>
 
-      <Field label={t('fields.logo')}>
-        <div className="flex items-start gap-3">
-          {state.logoUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={state.logoUrl}
-              alt=""
-              className="h-16 w-16 shrink-0 rounded-full border border-border object-cover"
-            />
-          ) : (
-            <div
-              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-border text-xl font-semibold text-white"
-              style={{ backgroundColor: state.primaryColor }}
-              aria-hidden
-            >
-              {state.name.trim().slice(0, 1).toUpperCase() || 'S'}
-            </div>
-          )}
-          <input
-            value={state.logoUrl}
-            onChange={(e) => setState((s) => ({ ...s, logoUrl: e.target.value }))}
-            className="input font-mono text-xs"
-            placeholder="https://..."
-          />
-        </div>
-      </Field>
+      <AvatarUploader
+        url={state.logoUrl}
+        onChange={(url) => setState((s) => ({ ...s, logoUrl: url }))}
+        fallback={state.name || 'S'}
+        fallbackColor={state.primaryColor}
+        label={t('fields.logo')}
+        uploadLabel={t('logoUpload')}
+        changeLabel={t('logoChange')}
+        removeLabel={t('logoRemove')}
+      />
 
-      <Field label={t('fields.coverImage')}>
-        <input
-          value={state.coverImageUrl}
-          onChange={(e) => setState((s) => ({ ...s, coverImageUrl: e.target.value }))}
-          className="input font-mono text-xs"
-          placeholder="https://..."
-        />
-        {state.coverImageUrl && (
-          <div className="mt-2 aspect-[16/9] w-full overflow-hidden rounded-md border border-border bg-muted">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={state.coverImageUrl} alt="" className="h-full w-full object-cover" />
-          </div>
-        )}
-      </Field>
+      <CoverUploader
+        url={state.coverImageUrl}
+        onChange={(url) => setState((s) => ({ ...s, coverImageUrl: url }))}
+        label={t('fields.coverImage')}
+        uploadLabel={t('logoUpload')}
+        changeLabel={t('logoChange')}
+        removeLabel={t('logoRemove')}
+      />
 
       {error && (
         <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">

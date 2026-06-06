@@ -19,46 +19,71 @@ const SUPPORTED: Set<SectionId> = new Set([
 
 function Hero({ store }: { store: StorefrontProps['store'] }) {
   const { theme, name } = store;
+  const cover = theme.coverImageUrl;
+  const logo = theme.logoUrl;
+  const initial = name.trim().slice(0, 1).toUpperCase();
+  // Soft white halo hugging the glyph edges + a faint dark drop — keeps the
+  // copy legible whether it sits over a bright or dark cover photo. Inherited
+  // by child spans (text-shadow inherits), so the tagline picks it up too.
+  const textShadow = '0 1px 2px rgba(0,0,0,0.22), 0 0 14px rgba(255,255,255,0.9)';
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.25) 100%)`,
-      }}
-    >
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-6 py-20 md:grid-cols-5 md:py-28">
-        <div className="md:col-span-3 flex flex-col justify-center">
-          <p className="text-sm font-medium" style={{ color: 'hsl(var(--primary))' }}>
+    <section className="relative isolate overflow-hidden">
+      {/* Background: the cover image fills the hero; without one we fall back to
+          the theme's soft gradient. */}
+      {cover ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={cover}
+          alt=""
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+          loading="eager"
+        />
+      ) : (
+        <div
+          className="absolute inset-0 -z-10"
+          style={{
+            background: `linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.25) 100%)`,
+          }}
+        />
+      )}
+
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-6 py-20 pb-0 pt-13 md:grid-cols-5">
+        <div className="flex flex-col justify-center md:col-span-3">
+          <p className="text-sm font-semibold" style={{ color: 'hsl(var(--primary))', textShadow }}>
             ✿ welcome ✿
           </p>
-          <h1 className="mt-4 text-5xl font-bold leading-tight tracking-tight md:text-6xl">
+          <h1
+            className="mt-4 text-5xl font-bold leading-tight tracking-tight md:text-6xl"
+            style={{ textShadow }}
+          >
             <span className="block">{name}</span>
-            <span className="mt-2 block text-2xl font-normal text-neutral-600 md:text-3xl">
+            <span className="mt-2 block text-2xl font-normal md:text-3xl">
               {theme.tagline ?? 'made with love'}
             </span>
           </h1>
           <a
             href="#all-products"
-            className="mt-10 inline-block self-start rounded-full px-8 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
+            className="mt-10 inline-block self-start rounded-full px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:opacity-90"
             style={{ backgroundColor: 'hsl(var(--primary))' }}
           >
             Browse the shop ♡
           </a>
         </div>
-        <div className="md:col-span-2">
-          {theme.coverImageUrl ? (
-            <div className="aspect-square overflow-hidden rounded-[2rem] border-4 border-white shadow-xl">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={theme.coverImageUrl}
-                alt=""
-                className="h-full w-full object-cover"
-                loading="eager"
-              />
-            </div>
-          ) : (
-            <div className="aspect-square rounded-[2rem] border-4 border-white bg-white/60 shadow-xl" />
-          )}
+        <div className="flex items-center md:col-span-2">
+          <div className="aspect-square w-full overflow-hidden rounded-full border-4 border-white shadow-xl">
+            {logo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={logo} alt={name} className="h-full w-full object-cover" loading="eager" />
+            ) : (
+              <div
+                className="flex h-full w-full items-center justify-center text-6xl font-bold text-white"
+                style={{ backgroundColor: 'hsl(var(--primary))' }}
+                aria-hidden
+              >
+                {initial}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

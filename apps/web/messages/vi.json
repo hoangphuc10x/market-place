@@ -37,7 +37,7 @@
     "title": "Mỗi shop là một <em>website</em>.",
     "subtitle": "Threadly là sàn cho các brand thời trang độc lập. Mỗi seller có URL riêng, theme riêng, thế giới riêng — nhưng khám phá thì ở đây.",
     "ctaBrowse": "Xem shop",
-    "ctaOpen": "Mở shop của bạn",
+    "ctaOpen": "Mở thêm shop mới",
     "pitch": {
       "url": {
         "title": "URL riêng",
@@ -80,7 +80,10 @@
       "password": "Mật khẩu",
       "submit": "Đăng nhập",
       "noAccount": "Lần đầu?",
-      "createAccount": "Tạo tài khoản"
+      "createAccount": "Tạo tài khoản",
+      "expired": "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại để tiếp tục.",
+      "errorCredentials": "Email hoặc mật khẩu không đúng. Vui lòng thử lại.",
+      "errorGeneric": "Không thể đăng nhập. Vui lòng thử lại."
     },
     "signup": {
       "title": "Tham gia Threadly",
@@ -90,7 +93,9 @@
       "password": "Mật khẩu",
       "submit": "Tạo tài khoản",
       "hasAccount": "Đã có tài khoản?",
-      "signIn": "Đăng nhập"
+      "signIn": "Đăng nhập",
+      "errorEmailTaken": "Email này đã được đăng ký. Hãy thử đăng nhập.",
+      "errorGeneric": "Không thể tạo tài khoản. Vui lòng thử lại."
     }
   },
   "account": {
@@ -101,8 +106,11 @@
     "profileTitle": "Hồ sơ của tôi",
     "profileSubtitle": "Quản lý thông tin cá nhân.",
     "displayName": "Tên hiển thị",
-    "avatarUrl": "Avatar (URL)",
-    "avatarHint": "Paste link ảnh. Để trống sẽ dùng chữ cái đầu của tên.",
+    "avatarUrl": "Avatar",
+    "avatarHint": "Tải ảnh lên (tối đa 8 MB). Để trống sẽ dùng chữ cái đầu của tên.",
+    "avatarUpload": "Tải ảnh lên",
+    "avatarChange": "Đổi ảnh",
+    "avatarRemove": "Xóa",
     "save": "Lưu thay đổi",
     "saving": "Đang lưu…",
     "saved": "Đã lưu ✓",
@@ -142,7 +150,7 @@
       "products": {
         "title": "Sản phẩm",
         "empty": "Chưa có sản phẩm nào. Thêm sản phẩm đầu tiên để go-live.",
-        "addNew": "+ Thêm sản phẩm",
+        "addNew": "Thêm sản phẩm",
         "edit": "Sửa",
         "delete": "Xoá",
         "deleteConfirm": "Xoá sản phẩm này?",
@@ -167,7 +175,7 @@
         "variantPrice": "Giá (VND)",
         "variantStock": "Tồn kho",
         "variantColor": "Màu",
-        "addVariant": "+ Thêm phân loại",
+        "addVariant": "Thêm phân loại",
         "removeVariant": "Xoá",
         "details": "Chi tiết",
         "material": "Chất liệu",
@@ -189,9 +197,12 @@
         "theme": "Theme",
         "primaryColor": "Màu chính",
         "tagline": "Tagline",
-        "coverImage": "Ảnh bìa (URL)",
-        "logo": "Logo shop / Avatar (URL)"
+        "coverImage": "Ảnh bìa",
+        "logo": "Logo shop / Avatar"
       },
+      "logoUpload": "Tải ảnh lên",
+      "logoChange": "Đổi ảnh",
+      "logoRemove": "Xóa",
       "save": "Lưu thay đổi",
       "saving": "Đang lưu…",
       "saved": "Đã lưu ✓"
@@ -211,7 +222,7 @@
         "urlLabel": "URL",
         "urlPlaceholder": "linhstudio",
         "slugStatus": {
-          "checking": "Đang kiểm tra…",
+          "checking": "Đang kiểm tra đường dẫn này có khả dụng không…",
           "available": "✓ URL này là của bạn",
           "invalid": "Dùng 3–32 ký tự chữ thường, số, hoặc dấu gạch.",
           "reserved": "Tên này đã được dành riêng.",
@@ -267,6 +278,12 @@
       "claim": "Claim /{slug}",
       "browse": "Xem shop khác"
     },
-    "welcome": "Chào mừng đến Threadly"
+    "welcome": "Chào mừng đến Threadly",
+    "welcomeBanner": {
+      "title": "{name} đã hoạt động! 🎉",
+      "subtitle": "Thêm sản phẩm đầu tiên để khách có thể xem hàng của bạn.",
+      "cta": "Thêm sản phẩm",
+      "dismiss": "Đóng"
+    }
   }
 }

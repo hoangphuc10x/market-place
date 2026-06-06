@@ -70,8 +70,8 @@ async function ShopOverview({
         )}
       </div>
 
-      {/* Avatar / logo overlap */}
-      <div className="-mt-10 flex items-end gap-4 px-6">
+      {/* Avatar / logo overlapping the cover band */}
+      <div className="flex items-end gap-4 px-6">
         <ShopAvatar store={store} />
         <div className="flex-1 pb-2">
           <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
@@ -153,9 +153,12 @@ async function ShopOverview({
 
 function ShopAvatar({ store }: { store: PublicStore }) {
   const initial = store.name.trim().slice(0, 1).toUpperCase();
+  // The avatar carries its own negative margin so it overlaps the cover band
+  // regardless of how tall the adjacent name/slug column is.
+  const base = '-mt-14 h-24 w-24 shrink-0 rounded-full border-4 border-background shadow-md';
   if (store.theme.logoUrl) {
     return (
-      <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full border-4 border-background bg-background shadow-sm">
+      <div className={`${base} overflow-hidden bg-background`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={store.theme.logoUrl} alt="" className="h-full w-full object-cover" />
       </div>
@@ -163,7 +166,7 @@ function ShopAvatar({ store }: { store: PublicStore }) {
   }
   return (
     <div
-      className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-4 border-background text-2xl font-semibold text-white shadow-sm"
+      className={`${base} flex items-center justify-center text-3xl font-semibold text-white`}
       style={{ backgroundColor: store.theme.primaryColor }}
       aria-hidden
     >

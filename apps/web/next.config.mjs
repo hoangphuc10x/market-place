@@ -31,6 +31,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'lh5.googleusercontent.com' },
       { protocol: 'https', hostname: 'lh6.googleusercontent.com' },
       { protocol: 'https', hostname: 'drive.google.com' },
+      // Cloudinary (image CDN — production upload target)
+      { protocol: 'https', hostname: 'res.cloudinary.com' },
       // Future: own CDN
       { protocol: 'https', hostname: '**.r2.cloudflarestorage.com' },
       { protocol: 'https', hostname: '**.threadly.example' },

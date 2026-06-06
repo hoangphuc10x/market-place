@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useTransition } from 'react';
+import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { normalizeSlug } from '@threadly/types';
 import { checkSlugAction } from '../actions';
@@ -33,26 +34,33 @@ export function IdentityStep({
     }
   }, [state.storeName, slugTouched]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const checkSlug = (slug: string) => {
+  // Debounced slug availability check: as soon as the slug changes we show the
+  // "checking" spinner, then hit the API 450ms after typing stops. This lets the
+  // user see we're validating their personal URL, instead of guessing.
+  useEffect(() => {
+    const slug = state.storeSlug;
     if (!slug) {
       setSlugStatus({ state: 'idle' });
       return;
     }
     setSlugStatus({ state: 'checking' });
-    startTransition(async () => {
-      const res = await checkSlugAction(slug);
-      setSlugStatus({
-        state: res.available
-          ? 'ok'
-          : res.reason === 'reserved'
-            ? 'reserved'
-            : res.reason === 'invalid'
-              ? 'invalid'
-              : 'taken',
-        suggestions: res.suggestions,
+    const id = setTimeout(() => {
+      startTransition(async () => {
+        const res = await checkSlugAction(slug);
+        setSlugStatus({
+          state: res.available
+            ? 'ok'
+            : res.reason === 'reserved'
+              ? 'reserved'
+              : res.reason === 'invalid'
+                ? 'invalid'
+                : 'taken',
+          suggestions: res.suggestions,
+        });
       });
-    });
-  };
+    }, 450);
+    return () => clearTimeout(id);
+  }, [state.storeSlug]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const canProceed =
     state.storeName.trim().length >= 2 && state.storeSlug.length >= 3 && slugStatus.state === 'ok';
@@ -88,7 +96,6 @@ export function IdentityStep({
               const v = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
               update('storeSlug', v);
             }}
-            onBlur={(e) => checkSlug(e.target.value)}
             placeholder={t('urlPlaceholder')}
             maxLength={32}
             className="h-12 flex-1 bg-transparent px-3 text-base focus:outline-none"
@@ -97,10 +104,7 @@ export function IdentityStep({
         <SlugStatusLine
           status={slugStatus.state}
           suggestions={slugStatus.suggestions}
-          onPick={(s) => {
-            update('storeSlug', s);
-            checkSlug(s);
-          }}
+          onPick={(s) => update('storeSlug', s)}
         />
       </label>
 
@@ -130,7 +134,12 @@ function SlugStatusLine({
   const t = useTranslations('seller.onboarding.identity.slugStatus');
   if (status === 'idle') return null;
   if (status === 'checking')
-    return <p className="mt-2 text-sm text-muted-foreground">{t('checking')}</p>;
+    return (
+      <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
+        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+        {t('checking')}
+      </p>
+    );
   if (status === 'ok') return <p className="mt-2 text-sm text-emerald-600">{t('available')}</p>;
   if (status === 'invalid') return <p className="mt-2 text-sm text-destructive">{t('invalid')}</p>;
 

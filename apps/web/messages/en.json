@@ -37,7 +37,7 @@
     "title": "Every shop is a <em>storefront</em>.",
     "subtitle": "Threadly is a marketplace of independent fashion brands. Each seller has their own URL, their own theme, their own world — but discovery happens here.",
     "ctaBrowse": "Browse shops",
-    "ctaOpen": "Open your shop",
+    "ctaOpen": "Open a new shop",
     "pitch": {
       "url": {
         "title": "Your own URL",
@@ -80,7 +80,10 @@
       "password": "Password",
       "submit": "Sign in",
       "noAccount": "New here?",
-      "createAccount": "Create an account"
+      "createAccount": "Create an account",
+      "expired": "Your session expired. Please sign in again to continue.",
+      "errorCredentials": "Wrong email or password. Please try again.",
+      "errorGeneric": "Couldn't sign you in. Please try again."
     },
     "signup": {
       "title": "Join Threadly",
@@ -90,7 +93,9 @@
       "password": "Password",
       "submit": "Create account",
       "hasAccount": "Already a member?",
-      "signIn": "Sign in"
+      "signIn": "Sign in",
+      "errorEmailTaken": "That email is already registered. Try signing in.",
+      "errorGeneric": "Couldn't create your account. Please try again."
     }
   },
   "account": {
@@ -101,8 +106,11 @@
     "profileTitle": "My profile",
     "profileSubtitle": "Manage your personal info.",
     "displayName": "Display name",
-    "avatarUrl": "Avatar (URL)",
-    "avatarHint": "Paste an image URL. Leave blank to use your first initial.",
+    "avatarUrl": "Avatar",
+    "avatarHint": "Upload an image (max 8 MB). Leave blank to use your first initial.",
+    "avatarUpload": "Upload image",
+    "avatarChange": "Change",
+    "avatarRemove": "Remove",
     "save": "Save changes",
     "saving": "Saving…",
     "saved": "Saved ✓",
@@ -142,7 +150,7 @@
       "products": {
         "title": "Products",
         "empty": "No products yet. Add your first piece to go live.",
-        "addNew": "+ Add product",
+        "addNew": "Add product",
         "edit": "Edit",
         "delete": "Delete",
         "deleteConfirm": "Delete this product?",
@@ -167,7 +175,7 @@
         "variantPrice": "Price (VND)",
         "variantStock": "Stock",
         "variantColor": "Color",
-        "addVariant": "+ Add variant",
+        "addVariant": "Add variant",
         "removeVariant": "Remove",
         "details": "Details",
         "material": "Material",
@@ -189,9 +197,12 @@
         "theme": "Theme",
         "primaryColor": "Primary color",
         "tagline": "Tagline",
-        "coverImage": "Cover image (URL)",
-        "logo": "Shop logo / Avatar (URL)"
+        "coverImage": "Cover image",
+        "logo": "Shop logo / Avatar"
       },
+      "logoUpload": "Upload image",
+      "logoChange": "Change",
+      "logoRemove": "Remove",
       "save": "Save changes",
       "saving": "Saving…",
       "saved": "Saved ✓"
@@ -211,7 +222,7 @@
         "urlLabel": "URL",
         "urlPlaceholder": "linhstudio",
         "slugStatus": {
-          "checking": "Checking…",
+          "checking": "Checking if this URL is available…",
           "available": "✓ Available — this URL is yours",
           "invalid": "Use 3–32 lowercase letters, numbers, or dashes.",
           "reserved": "This name is reserved.",
@@ -267,6 +278,12 @@
       "claim": "Claim /{slug}",
       "browse": "Browse shops"
     },
-    "welcome": "Welcome to Threadly"
+    "welcome": "Welcome to Threadly",
+    "welcomeBanner": {
+      "title": "{name} is live! 🎉",
+      "subtitle": "Add your first product so shoppers have something to browse.",
+      "cta": "Add a product",
+      "dismiss": "Dismiss"
+    }
   }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useTransition } from 'react';
+import { useCallback, useState, useTransition } from 'react';
 import {
   ChevronDown,
   ExternalLink,
@@ -14,6 +14,7 @@ import {
 import { useTranslations } from 'next-intl';
 import type { User } from '@threadly/types';
 import { cn } from '@/lib/cn';
+import { useClickOutside } from '@/lib/use-click-outside';
 import { logoutAction } from '@/app/actions/auth';
 
 interface UserMenuProps {
@@ -35,7 +36,8 @@ export function UserMenu({ viewer, myShopSlug, myShopName }: UserMenuProps) {
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
 
-  const close = () => setOpen(false);
+  const close = useCallback(() => setOpen(false), []);
+  const ref = useClickOutside<HTMLDivElement>(open, close);
   const onLogout = () => {
     setOpen(false);
     startTransition(() => logoutAction());
@@ -45,7 +47,7 @@ export function UserMenu({ viewer, myShopSlug, myShopName }: UserMenuProps) {
   const initials = viewer.displayName.trim().slice(0, 1).toUpperCase() || 'U';
 
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -62,85 +64,72 @@ export function UserMenu({ viewer, myShopSlug, myShopName }: UserMenuProps) {
       </button>
 
       {open && (
-        <>
-          <button
-            type="button"
-            aria-hidden
-            tabIndex={-1}
-            className="fixed inset-0 z-40 cursor-default"
-            onClick={close}
-          />
-          <div className="absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-xl border border-border bg-popover text-sm shadow-xl">
-            {/* Header card */}
-            <div className="flex items-center gap-3 border-b border-border px-4 py-3">
-              <Avatar viewer={viewer} initials={initials} size={40} />
-              <div className="min-w-0">
-                <p className="truncate font-semibold">{viewer.displayName}</p>
-                <p className="truncate text-xs text-muted-foreground">{viewer.email}</p>
-              </div>
+        <div className="absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-xl border border-border bg-popover text-sm shadow-xl">
+          {/* Header card */}
+          <div className="flex items-center gap-3 border-b border-border px-4 py-3">
+            <Avatar viewer={viewer} initials={initials} size={40} />
+            <div className="min-w-0">
+              <p className="truncate font-semibold">{viewer.displayName}</p>
+              <p className="truncate text-xs text-muted-foreground">{viewer.email}</p>
             </div>
+          </div>
 
-            {/* Buyer section */}
-            <Section>
-              <Item href="/account" icon={<ProfileIcon className="h-4 w-4" />} onSelect={close}>
-                {t('profile')}
-              </Item>
+          {/* Buyer section */}
+          <Section>
+            <Item href="/account" icon={<ProfileIcon className="h-4 w-4" />} onSelect={close}>
+              {t('profile')}
+            </Item>
+            <Item
+              href="/account/orders"
+              icon={<ShoppingBag className="h-4 w-4" />}
+              onSelect={close}
+            >
+              {t('orders')}
+            </Item>
+          </Section>
+
+          {/* Seller section */}
+          {isSeller ? (
+            <Section title={myShopName ?? t('myShop')}>
               <Item
-                href="/account/orders"
-                icon={<ShoppingBag className="h-4 w-4" />}
+                href={`/${myShopSlug}`}
+                icon={<ExternalLink className="h-4 w-4" />}
                 onSelect={close}
               >
-                {t('orders')}
+                {t('viewStorefront')}
+              </Item>
+              <Item href="/seller" icon={<Store className="h-4 w-4" />} onSelect={close}>
+                {t('sellerDashboard')}
+              </Item>
+              <Item
+                href="/seller/settings"
+                icon={<Settings className="h-4 w-4" />}
+                onSelect={close}
+              >
+                {t('shopSettings')}
               </Item>
             </Section>
-
-            {/* Seller section */}
-            {isSeller ? (
-              <Section title={myShopName ?? t('myShop')}>
-                <Item
-                  href={`/${myShopSlug}`}
-                  icon={<ExternalLink className="h-4 w-4" />}
-                  onSelect={close}
-                >
-                  {t('viewStorefront')}
-                </Item>
-                <Item href="/seller" icon={<Store className="h-4 w-4" />} onSelect={close}>
-                  {t('sellerDashboard')}
-                </Item>
-                <Item
-                  href="/seller/settings"
-                  icon={<Settings className="h-4 w-4" />}
-                  onSelect={close}
-                >
-                  {t('shopSettings')}
-                </Item>
-              </Section>
-            ) : (
-              <Section>
-                <Item
-                  href="/seller/onboarding"
-                  icon={<Store className="h-4 w-4" />}
-                  onSelect={close}
-                >
-                  {t('openShop')}
-                </Item>
-              </Section>
-            )}
-
-            {/* Logout */}
+          ) : (
             <Section>
-              <button
-                type="button"
-                onClick={onLogout}
-                disabled={pending}
-                className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-destructive hover:bg-destructive/5 disabled:opacity-50"
-              >
-                <LogOut className="h-4 w-4" />
-                {pending ? '…' : t('logout')}
-              </button>
+              <Item href="/seller/onboarding" icon={<Store className="h-4 w-4" />} onSelect={close}>
+                {t('openShop')}
+              </Item>
             </Section>
-          </div>
-        </>
+          )}
+
+          {/* Logout */}
+          <Section>
+            <button
+              type="button"
+              onClick={onLogout}
+              disabled={pending}
+              className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-destructive hover:bg-destructive/5 disabled:opacity-50"
+            >
+              <LogOut className="h-4 w-4" />
+              {pending ? '…' : t('logout')}
+            </button>
+          </Section>
+        </div>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import type { User } from '@threadly/types';
+import { AvatarUploader } from '@/components/forms/avatar-uploader';
 import { updateProfileAction } from '@/app/actions/auth';
 
 export function ProfileForm({ viewer }: { viewer: User }) {
@@ -37,21 +38,17 @@ export function ProfileForm({ viewer }: { viewer: User }) {
 
   return (
     <form onSubmit={submit} className="space-y-6">
-      {/* Avatar preview + URL input side-by-side */}
-      <div className="flex items-start gap-5">
-        <AvatarPreview url={avatarUrl} fallback={displayName} />
-        <div className="flex-1 space-y-1.5">
-          <label className="block text-sm font-medium">{t('avatarUrl')}</label>
-          <input
-            type="url"
-            value={avatarUrl}
-            onChange={(e) => setAvatarUrl(e.target.value)}
-            placeholder="https://..."
-            className="h-11 w-full rounded-lg border border-border bg-background px-3 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-ring"
-          />
-          <p className="text-xs text-muted-foreground">{t('avatarHint')}</p>
-        </div>
-      </div>
+      {/* Avatar preview + upload */}
+      <AvatarUploader
+        url={avatarUrl}
+        fallback={displayName}
+        onChange={setAvatarUrl}
+        label={t('avatarUrl')}
+        hint={t('avatarHint')}
+        uploadLabel={t('avatarUpload')}
+        changeLabel={t('avatarChange')}
+        removeLabel={t('avatarRemove')}
+      />
 
       <label className="block space-y-1.5">
         <span className="text-sm font-medium">{t('displayName')}</span>
@@ -90,21 +87,5 @@ export function ProfileForm({ viewer }: { viewer: User }) {
         </button>
       </div>
     </form>
-  );
-}
-
-function AvatarPreview({ url, fallback }: { url: string; fallback: string }) {
-  const initials = fallback.trim().slice(0, 1).toUpperCase() || 'U';
-  return (
-    <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
-      {url ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={url} alt="" className="h-full w-full object-cover" />
-      ) : (
-        <div className="flex h-full w-full items-center justify-center bg-foreground text-3xl font-semibold text-background">
-          {initials}
-        </div>
-      )}
-    </div>
   );
 }

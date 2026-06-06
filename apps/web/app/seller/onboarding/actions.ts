@@ -9,6 +9,7 @@ import {
   type SlugAvailabilityResponse,
 } from '@threadly/types';
 import { checkSlugAvailability, completeOnboarding } from '@/lib/api/stores';
+import { bounceIfUnauthorized } from '@/lib/auth-redirect';
 
 export async function checkSlugAction(slug: string): Promise<SlugAvailabilityResponse> {
   const parsed = slugSchema.safeParse(slug);
@@ -35,6 +36,8 @@ export async function finishOnboardingAction(payload: OnboardingPayload) {
   try {
     store = await completeOnboarding(parsed.data);
   } catch (e) {
+    // Session expired → clear cookie and send to login (returns here after).
+    await bounceIfUnauthorized(e, '/seller/onboarding');
     return { ok: false as const, error: (e as Error).message };
   }
 

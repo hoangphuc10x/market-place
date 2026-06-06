@@ -15,6 +15,14 @@ export async function login(input: LoginInput): Promise<AuthResponse> {
   return apiPost<AuthResponse>('/v1/auth/login', input);
 }
 
+export async function refreshTokens(refreshToken: string): Promise<AuthResponse> {
+  return apiPost<AuthResponse>('/v1/auth/refresh', { refreshToken });
+}
+
+export async function logout(refreshToken: string): Promise<void> {
+  await apiPost('/v1/auth/logout', { refreshToken });
+}
+
 export async function fetchMe(): Promise<User | null> {
   try {
     return await apiGet<User>('/v1/auth/me', { auth: true, cache: 'no-store' });

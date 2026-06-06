@@ -1,10 +1,12 @@
 import { Body, Controller, Get, HttpCode, Patch, Post, UseGuards } from '@nestjs/common';
 import {
   loginInputSchema,
+  refreshInputSchema,
   signupInputSchema,
   updateProfileInputSchema,
   type AuthResponse,
   type LoginInput,
+  type RefreshInput,
   type SignupInput,
   type UpdateProfileInput,
   type User,
@@ -29,6 +31,23 @@ export class AuthController {
   @HttpCode(200)
   login(@Body(new ZodValidationPipe(loginInputSchema)) input: LoginInput): Promise<AuthResponse> {
     return this.auth.login(input);
+  }
+
+  @Post('refresh')
+  @HttpCode(200)
+  refresh(
+    @Body(new ZodValidationPipe(refreshInputSchema)) input: RefreshInput,
+  ): Promise<AuthResponse> {
+    return this.auth.refresh(input.refreshToken);
+  }
+
+  @Post('logout')
+  @HttpCode(200)
+  async logout(
+    @Body(new ZodValidationPipe(refreshInputSchema)) input: RefreshInput,
+  ): Promise<{ ok: true }> {
+    await this.auth.logout(input.refreshToken);
+    return { ok: true };
   }
 
   @Get('me')

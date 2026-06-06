@@ -94,9 +94,9 @@ function ShopCard({ store }: { store: PublicStore }) {
           <h3 className="truncate text-lg font-semibold">{store.name}</h3>
           <span className="shrink-0 font-mono text-xs text-muted-foreground">/{store.slug}</span>
         </div>
-        {store.theme.tagline && (
-          <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">{store.theme.tagline}</p>
-        )}
+        <p className="mt-1 line-clamp-1 min-h-[1.25rem] text-sm text-muted-foreground">
+          {store.theme.tagline || ' '}
+        </p>
         <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground">
           <span>{store.productCount} pieces</span>
           {store.followerCount > 0 && <span>{store.followerCount} followers</span>}

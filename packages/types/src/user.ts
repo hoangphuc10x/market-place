@@ -30,9 +30,16 @@ export type LoginInput = z.infer<typeof loginInputSchema>;
 export const authResponseSchema = z.object({
   user: userSchema,
   accessToken: z.string(),
+  refreshToken: z.string(),
+  /** Access-token lifetime in seconds. */
   expiresIn: z.number().int().positive(),
 });
 export type AuthResponse = z.infer<typeof authResponseSchema>;
+
+export const refreshInputSchema = z.object({
+  refreshToken: z.string().min(1),
+});
+export type RefreshInput = z.infer<typeof refreshInputSchema>;
 
 /** Profile self-edit. Email + role + id are immutable through this surface. */
 export const updateProfileInputSchema = z.object({
