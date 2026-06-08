@@ -21,15 +21,15 @@
     "clsx": "^2.1.1"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@threadly/config": "workspace:*",
-    "@types/react": "^19.0.2",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.0.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "typescript": "^5.7.2"
   }
 }
